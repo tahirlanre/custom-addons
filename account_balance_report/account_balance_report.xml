@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data>
+
+    <record id="view_account_entries_report_search" model="ir.ui.view">
+        <field name="name">account.entries.report.search</field>
+        <field name="model">account.entries.report</field>
+        <field name="arch" type="xml">
+            <search string="Entries Analysis">
+                <field name="date"/>
+                <!--<field name="date_created"/>
+                <field name="date_maturity"/>-->
+                <filter string="This F.Year" name="thisyear" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=', time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]" help="Journal Entries with period in current year"/>
+                <!--<filter string="This Period" name="period" context="{'period':'current_period'}" help="Journal Entries with period in current period"/>-->
+
+                <separator/>
+                <filter string="Bank" domain="[('user_type','=','Bank')]" help = "Bank"/>
+
+
+                <field name="account_id"/>
+                <!--<field name="journal_id"/>
+                <field name="period_id"/>-->
+                <group expand="0" string="Extended Filters...">
+                    <!--<field name="fiscalyear_id"/>
+                    <field name="product_id"/>-->
+                    <field name="partner_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </group>
+                <group expand="1" string="Group By">
+                    <!--<filter string="Partner" context="{'group_by':'partner_id'}"/>
+                    <filter string="Journal" name="group_journal" context="{'group_by':'journal_id'}"/>
+                    <filter string="Acc.Type" context="{'group_by':'user_type'}" name="usertype"/>
+                    <filter string="Int.Type" context="{'group_by':'type'}"/>-->
+                    <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <separator/>
+                    <filter string="Entries Month" context="{'group_by':'date:month'}" help="Entries Date by Month"/>
+                 </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="view_account_entries_report_graph" model="ir.ui.view">
+         <field name="name">account.entries.report.graph</field>
+         <field name="model">account.entries.report</field>
+         <field name="arch" type="xml">
+             <graph string="Entries Analysis" type="pivot">
+                <field name="account_id" type="row"/>
+                <!--<field name="period_id" type="col"/>!-->
+                <field name="debit" type="measure"/>
+                <field name="credit" type="measure"/>
+                <field name="balance" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+
+<record id="account_balance_report_action" model="ir.actions.act_window">
+    <field name="name">Account Analysis</field>
+    <field name="res_model">account.entries.report</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">graph</field>
+    <field name="search_view_id" ref="view_account_entries_report_search"/>
+    <field name="view_id" ref="view_account_entries_report_graph"/>
+    <field name="context">{'group_by':[], 'search_default_thisyear':0, 'group_by_no_leaf':1}</field>
+</record>
+
+<menuitem id="account_balance_report" parent="base.menu_reporting"
+    name="Chart of Accounts" sequence="9"/>
+
+<menuitem id="account_balance_report_menu" action="account_balance_report_action"
+    parent="account_balance_report" sequence="10"/>
+
+</data>
+</openerp>

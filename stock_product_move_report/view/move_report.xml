@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp> 
+    <data>
+        <template id="move_report">
+            <t t-call="report.html_container"> 
+                <t t-call="report.internal_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 80px;"/>
+                        </div>
+                        
+                        <h2 class = "text-center">Stock Product Move Report</h2>
+                        <div class="row mt32">
+                            <div class="col-xs-3">
+                                <strong>Company</strong>:<br/>
+                                <span t-esc="res_company.name"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Product</strong>:<br/>
+                                <span t-esc="data['form']['product_id'][1]"/> 
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Start Period</strong>:<br/>
+                                <span t-esc="formatLang(data['form']['date_from'],date=True)"/> 
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>End Period</strong>:<br/>
+                                <span t-esc="formatLang(data['form']['date_to'],date=True)"/> 
+                            </div>
+                        </div>
+                        <br/>
+                        <table class="table table-condensed">
+                           <thead>
+                                <th><strong>Date</strong></th>
+                                <th><strong>Partner</strong></th>
+                                <th class="text-right"><strong>Qty In</strong></th>
+                                <th class="text-right"><strong>Qty Out</strong></th>
+								<th class="text-right"><strong>Balance</strong></th>
+                            </thead> 
+                            <tbody>
+                                <td>
+                                    <span t-esc="formatLang(data['form']['date_from'],date=True)"/>
+                                </td>
+								<td>
+									<span>Initial Inventory</span>
+								</td>
+								<td>
+								</td>
+								<td>
+								</td>
+                                <td class="text-right">
+                                    <span t-esc="formatLang(initialinventory(data['form']),digits=0)"/>
+                                </td>
+                                <tr t-foreach="stock_moves(data['form'])" t-as="move">
+                                    <td>
+                                        <span t-esc="formatLang(move.date,date=True)"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="move.picking_partner.name"/>
+                                    </td>
+                                    <td class="text-right">
+										<span t-esc="formatLang(stock_qty_in(move),digits=0)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="formatLang(stock_qty_out(move),digits=0)"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="formatLang(get_balance(data['form'],move),digits=0)"/>
+                                    </td>
+                                </tr>
+								<tr style="background-color:lightgray;">
+								<td>
+									<strong>Cumulated Stock Balance</strong>
+								</td>
+								<td>
+								</td>
+								<td class="text-right">
+								</td>
+								<td class="text-right">
+								</td>
+								<td class="text-right">
+									<strong t-esc="formatLang(qty_available(data['form']),digits=0)"></strong>
+								</td>
+							</tr>	
+                            </tbody>
+                        </table>
+                    </div>
+                </t>  
+            </t> 
+        </template>
+
+    </data>
+</openerp>

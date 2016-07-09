@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <record id="stock_product_move_report_id" model="ir.actions.report.xml">
+        <field name="name">Stock Product Move Report</field>
+        <field name="type">ir.actions.report.xml</field>
+        <field name="model">stock.product.move.report</field>
+        <field name="report_name">stock_product_move_report</field>
+        
+    </record>
+
+    <report id="inventory_report_qweb_report"
+
+                string="Stock Product Move Report Qweb"
+                model="stock.product.move.report"
+                report_type = "qweb-pdf"
+                file="stock_product_move_report.move_report"
+                name="stock_product_move_report.move_report"  />
+</data>
+</openerp>

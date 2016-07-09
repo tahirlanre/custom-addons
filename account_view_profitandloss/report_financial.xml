@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_financial_inherit" inherit_id="account.report_financial">
+    <xpath expr="//table[@class='table table-condensed'][2]//tbody" position="after">
+		<br/>
+        <t t-if="data['form']['account_report_id'][1] != 'Balance Sheet'">
+            <t t-foreach="get_lines(data)" t-as="a">
+                <t t-if="a.get('level')==0">
+                    <tr style="background-color:lightgray;">
+                        <th>Profit (Loss): </th>
+                        <th class= "text-right" t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"></th>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </xpath>
+</template>
+</data>
+</openerp>

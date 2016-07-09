@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data>
+	<record id="view_product_template_form_qty_update" model="ir.ui.view">
+	    <field name="name">product.template.form.qty.update</field>
+	    <field name="model">product.template</field>
+	    <field name="inherit_id" ref="stock.view_template_property_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//group[@string='Stock and Expected Variations']" position="replace">
+				<group string="Stock and Expected Variations" attrs="{'invisible': [('type', '=', 'service')]}" groups="base.group_user">
+                <label for="qty_available"/>
+                    <div>
+                        <field name="qty_available" class="oe_inline"/>
+                    </div>
+                <label for="incoming_qty"/>
+                    <div>
+                        <field name="incoming_qty" class="oe_inline"/>
+                    </div>
+                <field name="virtual_available"/>
+				</group>
+            </xpath>
+	    </field>
+	</record>
+</data>
+</openerp>

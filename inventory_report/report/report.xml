@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <record id="aeroo_inventory_report_id" model="ir.actions.report.xml">
+        <field name="name">Inventory Report</field>
+        <field name="type">ir.actions.report.xml</field>
+        <field name="model">stock.inventory.report</field>
+        <field name="report_name">stock_inventory_report</field>
+        
+    </record>
+
+    <report id="inventory_report_qweb_report"
+
+                string="Inventory Report Qweb"
+                model="stock.inventory.report"
+                report_type = "qweb-pdf"
+                file="inventory_report.inventory_report"
+                name="inventory_report.inventory_report"  />
+</data>
+</openerp>

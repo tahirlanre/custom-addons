@@ -1,0 +1,20 @@
+<openerp>
+  <data>
+<record id="view_report_pos_order_graph_custom" model="ir.ui.view">
+    	<field name="name">report.pos.order.graph</field>
+    	<field name="model">report.pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_report_pos_order_graph"/>
+        <field name="arch" type="xml">
+			<xpath expr="//graph[@string='Point of Sale Analysis']" position="replace">
+	         <graph string="Point of Sale Analysis" type="bar">
+	            <field name="product_categ_id" type="row"/>
+	            <field name="date" interval="month" type="col"/>
+	          <!--<field name="product_qty" type="measure"/>-->
+	            <field name="price_total" type="measure"/>
+	        </graph>
+			</xpath>
+        </field>
+</record>
+  </data>
+</openerp>
+

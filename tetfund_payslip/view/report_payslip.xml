@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_payslip" inherit_id="hr_payroll.report_payslip">
+    
+        <xpath expr="//div[1]" position="replace">
+            <div class="page">
+                <h2>Pay Slip</h2>
+                    <p t-field="o.name"/>
+
+                    <table class="table table-condensed table-bordered" style="background-color:#568eff">
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td><span t-field="o.employee_id"/></td>
+                            <td><strong>Grade</strong></td>
+                            <td><span t-field="o.employee_id.grade"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Staff ID</strong></td>
+                            <td><span t-field="o.employee_id.staff_id"/></td>
+                            <td><strong>Step</strong></td>
+                            <td><span t-field="o.employee_id.step"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Department/Unit</strong></td>
+                            <td><span t-field="o.employee_id.dept"/></td>
+                            <td><strong>Gender</strong></td>
+                            <td><span t-field="o.employee_id.gender"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Designation</strong></td>
+                            <td><span t-field="o.employee_id.job_id"/></td>
+                            <td><strong>Tax State</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date of First Appt</strong></td>
+                            <td><span t-field="o.employee_id.date_appoint"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date of Birth</strong></td>
+                            <td><span t-field="o.employee_id.birthday"/></td>
+                        </tr>
+                        </table>
+                        
+                        <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td><strong>Bank Information Details</strong></td>
+                            <td></td>
+                           
+                            <td><strong>Contributory Pension Information</strong></td>
+                            <td></td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td><strong>Bank Name</strong></td>
+                            <td><span t-field="o.employee_id.bank_name"/></td>
+                            <td><strong>PFA Name</strong></td>
+                            <td><span t-field="o.employee_id.pfa_name"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account No</strong></td>
+                            <td><span t-field="o.employee_id.account_no"/></td>
+                            <td><strong>Pension PIN</strong></td>
+                            <td><span t-field="o.employee_id.pension_pin"/></td>
+                        </tr>
+                        </table>
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Quantity/rate</th>
+                                <th>Amount</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
+                                <td><span t-field="p.code"/></td>
+                                <td><span t-field="p.name"/></td>
+                                <td><span t-field="p.quantity"/></td>
+                                <td><span t-esc="formatLang(p.amount, currency_obj=o.company_id.currency_id)"/></td>
+                                <td><span t-esc="formatLang(p.total, currency_obj=o.company_id.currency_id)"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="text-right"><strong>Authorized signature</strong></p>
+
+            </div>
+        </xpath>
+      
+</template>
+</data>
+</openerp>

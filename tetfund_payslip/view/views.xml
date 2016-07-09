@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_hr_employee_form">
+            <field name="name">hr.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <field name = "otherid" position = "after">
+                    <field name = "salary_level"/>
+                </field>
+                <notebook position="inside">
+
+                    <page string="Contribution Information">
+                        <group string = "Corporative Loan">
+                            <field name="loan"/>
+                            <field name="loan_amount" attrs="{'invisible':[('loan','=',False)]}"/>
+                        </group>
+                        <group string = "NHF Loan">
+                            <field name="nhf_loan"/>
+                            <field name="nhf_loan_amount" attrs="{'invisible':[('nhf_loan','=',False)]}"/>
+                        </group>
+                    </page>
+
+                </notebook>
+
+            </field>
+        </record>
+
+        <!-- Action to open salary structure -->
+    <act_window id="action_salary_scale"
+      name="Salary Scale"
+      res_model="hr.salary.structure"
+      view_mode="tree,form" />
+
+ <!-- Menu item to open salary structure -->
+    <menuitem id="menu_salary_scale"
+      name="Salary Scales"
+      parent="hr.menu_hr_main"
+      sequence="20"
+      action="action_salary_scale" />
+
+
+    </data>
+</openerp>

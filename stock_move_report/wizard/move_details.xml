@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_stock_move">
+            <field name="name">wiz.stock.move.form</field>
+            <field name="model">move.details</field>
+            <field name="arch" type="xml">
+                <form string="Move Report">
+                  
+                    <group string="Dates" col="4" colspan="4">
+                        <field name="date_start" required="1"/>
+                        <field name="date_end" required="1"/>
+                    
+                        <field name="type" required="1"/>
+                      
+                    </group>
+                    <footer>
+                        <button string="Print" name="move_report" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_report_stock_move" model="ir.actions.act_window">
+            <field name="name">Stock Move Report</field>
+            <field name="res_model">move.details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem icon="STOCK_PRINT" action="action_report_stock_move"
+                id="menu_stock_details" parent="stock.next_id_61" sequence="0" />
+        
+    </data>
+</openerp>

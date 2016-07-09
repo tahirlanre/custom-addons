@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="assets_frontend" inherit_id="web.assets_common">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/pos_discount_farsman/static/src/js/discount.js"></script>
+          </xpath>
+        </template>
+		
+		<!-- Add: CSS Files 
+		<template id="index" name="pos_discount_farsman index" inherit_id="point_of_sale.index">
+		    <xpath expr="//link[@id='pos-stylesheet']" position="after">
+		        <link rel="stylesheet" href="/pos_product_template/static/src/css/pos.css" id="pos-discount-farsman-stylesheet"/> 
+		    </xpath>
+		</template>-->
+    </data>
+</openerp>

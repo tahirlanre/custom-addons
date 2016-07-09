@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<openerp>
+    <data> 
+		<record model="ir.ui.view" id="view_pos_config_form_discount_farsman">
+            <field name="name">pos.config.form.view.discount.farsman</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Receipt']" position="after">
+                    <group string="Discounts" col="4" >
+                        <field name="promo_product_id" groups="base.group_erp_manager"/>
+                        <field name="discount_product_id" groups="base.group_erp_manager"/>
+						<field name="promo_qty" groups="base.group_erp_manager"/>
+						<br/>
+						<br/>
+                        <field name="promo_product_id_1" groups="base.group_erp_manager"/>
+                        <field name="discount_product_id_1" groups="base.group_erp_manager"/>
+						<field name="promo_qty_1" groups="base.group_erp_manager"/>
+						<br/>
+						<br/>
+                        <field name="promo_product_id_2" groups="base.group_erp_manager"/>
+                        <field name="discount_product_id_2" groups="base.group_erp_manager"/>
+						<field name="promo_qty_2" groups="base.group_erp_manager"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
