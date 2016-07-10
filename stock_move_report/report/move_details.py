@@ -31,8 +31,6 @@ class move_details(report_sxw.rml_parse):
             return cost * move.product_uom_qty
         return 0
     
-        
-      
     def _qty_available(self, form):
         move_obj = self.pool.get('stock.move')
         product_obj = self.pool.get('product.product')
@@ -65,8 +63,6 @@ class move_details(report_sxw.rml_parse):
         else:
             return {}
             
-            
-            
     def _move_details(self, form):
             
         mov_obj = self.pool.get('stock.move')
@@ -88,7 +84,9 @@ class move_details(report_sxw.rml_parse):
                 'product_id': move.product_id.name,
                 'dest_id': move.location_dest_id.name,
                 'qty': move.product_uom_qty,
-                'inventory_value': self._get_inventory_value(move)
+                'inventory_value': self._get_inventory_value(move),
+                'partner': move.picking_id.partner_id.name,
+                'origin' : move.picking_id.origin
             }
             
             data.append(result)
