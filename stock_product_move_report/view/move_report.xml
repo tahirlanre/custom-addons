@@ -34,6 +34,7 @@
                            <thead>
                                 <th><strong>Date</strong></th>
                                 <th><strong>Partner</strong></th>
+								<th><strong>Source</strong></th>
                                 <th class="text-right"><strong>Qty In</strong></th>
                                 <th class="text-right"><strong>Qty Out</strong></th>
 								<th class="text-right"><strong>Balance</strong></th>
@@ -49,6 +50,8 @@
 								</td>
 								<td>
 								</td>
+								<td>
+								</td>
                                 <td class="text-right">
                                     <span t-esc="formatLang(initialinventory(data['form']),digits=0)"/>
                                 </td>
@@ -57,7 +60,10 @@
                                         <span t-esc="formatLang(move.date,date=True)"/>
                                     </td>
                                     <td>
-                                        <span t-esc="move.picking_partner.name"/>
+                                        <span t-esc="move.picking_id.partner_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="move.picking_id.origin"/>
                                     </td>
                                     <td class="text-right">
 										<span t-esc="formatLang(stock_qty_in(move),digits=0)"/>
@@ -72,6 +78,8 @@
 								<tr style="background-color:lightgray;">
 								<td>
 									<strong>Cumulated Stock Balance</strong>
+								</td>
+								<td>
 								</td>
 								<td>
 								</td>

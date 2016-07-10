@@ -27,7 +27,7 @@
     'description': """
     """,
     'author': 'Tahir Aduragba',
-    'depends': ['stock', 'stock_move_partner_info'],
+    'depends': ['stock'],
     'data': [
         'wizard/print_report_view.xml',
         'report/report.xml',
