@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+
+	<report
+    	id="stock_report"
+    	model="stock.report"
+    	string="Stock Report"
+   	 	report_type="qweb-pdf"
+    	name="stock_report.stock_report_view"
+   	 	file="stock_report.stock_report_view"
+	 />
+	 
+   <!-- <record id="pos_session_custom_report" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="point_of_sale.paperformat_posreceipt"/>
+     </record>-->
+
+    </data>
+</openerp>

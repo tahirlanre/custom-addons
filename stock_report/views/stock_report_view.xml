@@ -1,0 +1,15 @@
+<openerp> 
+    <data>
+        <template id="stock_report_view">
+            <t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+                    </div>
+				</t>
+                </t> 
+            </t> 
+        </template>
+
+    </data>
+</openerp>
