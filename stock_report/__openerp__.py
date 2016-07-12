@@ -25,6 +25,8 @@
     'version': '1.0.0',
     'category': 'Stock',
     'description': """
+    
+    # TODO extend to get report of specific internal location
     """,
     'author': 'Tahir Aduragba',
     'website': '',
