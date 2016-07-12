@@ -16,12 +16,13 @@ class stock_report_wizard(osv.osv_memory):
     
     _columns = {
         'from_date': fields.date("Date from", required=True),
-        'to_date': fields.date("Date", required=True),
+        'to_date': fields.date("Date to", required=True),
         'location_id': fields.many2one('stock.location', 'Location', domain="[('usage', '=', 'internal')]"),
     }
     _defaults = {
                'to_date': lambda *a: time.strftime('%Y-%m-%d'),
                'from_date': lambda *a: time.strftime('%Y-%m-%d'),
+               'location_id': lambda *a: 12,        ## set location_id to WH/Stock
                }
     
 
@@ -35,3 +36,7 @@ class stock_report_wizard(osv.osv_memory):
         if res.get('id',False):
             datas['ids']=[res['id']]
         return self.pool['report'].get_action(cr, uid, [], 'stock_report.stock_report_view', data=datas, context=context)
+    
+    # TODO get id for WH/Stock
+    def _get_wh_stock_id(self):
+        pass

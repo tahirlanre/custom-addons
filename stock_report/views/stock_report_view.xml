@@ -24,16 +24,16 @@
                             </div>
 							<!--
 								TODO change to understandable location name
-							-->
+							
                             <div class="col-xs-3">
                                 <strong>Location</strong>:<br/>
                                 <span t-esc="data['form']['location_id']"/> 
-                            </div>
+                            </div> -->
                         </div>
                         <br/>
                         <table class="table table-condensed">
                             <thead>
-								<th><strong>Code</strong></th>
+								<!--<th><strong>Code</strong></th>-->
                                 <th><strong>Product</strong></th>
 								<th class="text-right"><strong>Opening Stock</strong></th>
 								<th class="text-right"><strong>Incoming Stock</strong></th>
@@ -43,9 +43,9 @@
                             </thead>
                             <tbody> 
 								<tr t-foreach="get_stock_report(data['form'])" t-as="line">
-									<td>
+									<!--<td>
 										<span t-esc="line['code']"/>
-									</td>
+									</td>-->
                                     <td>
 										<span t-esc="line['name']"/>
 									</td>
