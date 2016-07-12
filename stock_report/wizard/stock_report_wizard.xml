@@ -2,21 +2,19 @@
 <openerp>
 	<data>
 		<record id="wizard_stock_report" model="ir.ui.view">
-			<field name="name">stock.report.wizard</field>
-			<field name="model">stock.report.wizard</field>
+			<field name="name">stock.report</field>
+			<field name="model">stock.report</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Report Options">
-					
 					<group col="2" colspan="2">
-						
 						<field name="from_date" />
 						<field name="to_date" />
 						<field name="location_id" />
 						
                         <newline />
                         <button string="Cancel" special="cancel" icon="gtk-cancel" />
-                        <button name="render_html" string="Print" type="object" icon="gtk-print" default_focus="1" />
+                        <button name="print_report" string="Print" type="object" icon="gtk-print" default_focus="1" />
                         
                     </group>
 				</form>
@@ -28,7 +26,7 @@
         <record id="action_wizard_stock_report" model="ir.actions.act_window">
             <field name="name">Stock Report</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">stock.report.wizard</field>
+            <field name="res_model">stock.report</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form</field>
 			<field name="target">new</field>

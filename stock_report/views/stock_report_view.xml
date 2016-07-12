@@ -2,14 +2,38 @@
     <data>
         <template id="stock_report_view">
             <t t-call="report.html_container">
-				<t t-foreach="docs" t-as="o">
                 <t t-call="report.internal_layout">
                     <div class="page">
+                       	<div class="text-center">
+                            <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 80px;"/>
+                        </div>
+                        
+                        <h2 class = "text-center">Stock Report</h2>
+                        <div class="row mt32">
+                            <div class="col-xs-3">
+                                <strong>Company</strong>:<br/>
+                                <span t-esc="res_company.name"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>From Date</strong>:<br/>
+                                <span t-esc="formatLang(data['form']['from_date'],date=True)"/> 
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>To Date</strong>:<br/>
+                                <span t-esc="formatLang(data['form']['to_date'],date=True)"/> 
+                            </div>
+							<!--
+								TODO change to understandable location name
+							-->
+                            <div class="col-xs-3">
+                                <strong>Location</strong>:<br/>
+                                <span t-esc="data['form']['location_id']"/> 
+                            </div>
+                        </div>
+                        <br/>
                     </div>
 				</t>
-                </t> 
             </t> 
         </template>
-
     </data>
 </openerp>
