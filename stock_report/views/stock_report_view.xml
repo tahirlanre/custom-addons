@@ -31,6 +31,42 @@
                             </div>
                         </div>
                         <br/>
+                        <table class="table table-condensed">
+                            <thead>
+								<th><strong>Code</strong></th>
+                                <th><strong>Product</strong></th>
+								<th class="text-right"><strong>Opening Stock</strong></th>
+								<th class="text-right"><strong>Incoming Stock</strong></th>
+								<th class="text-right"><strong>Outgoing Stock</strong></th>
+								<th class="text-right"><strong>Closing Stock</strong></th>
+                                <th class="text-right"><strong>Stock Value</strong></th>
+                            </thead>
+                            <tbody> 
+								<tr t-foreach="get_stock_report(data['form'])" t-as="line">
+									<td>
+										<span t-esc="line['code']"/>
+									</td>
+                                    <td>
+										<span t-esc="line['name']"/>
+									</td>
+									<td class = "text-right">
+										<span t-esc="line['opening_stock']"/>
+									</td>
+									<td class = "text-right">
+										<span t-esc="line['incoming']"/>
+									</td>
+									<td class = "text-right">
+										<span t-esc="line['outgoing']"/>
+									</td>
+									<td class = "text-right">
+										<span t-esc="line['closing_stock']"/>
+									</td>
+                                    <td class = "text-right">
+										<span t-esc="formatLang(line['stock_value'])"/>
+									</td>
+								</tr>
+                            </tbody>
+                        </table>
                     </div>
 				</t>
             </t> 
