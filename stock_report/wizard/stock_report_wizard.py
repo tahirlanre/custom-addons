@@ -16,18 +16,6 @@ class stock_report_wizard(osv.osv_memory):
     
     # TODO select to show incoming, outgoing, opening or closing stocks
     
-    _columns = {
-        'from_date': fields.date("Date from", required=True),
-        'to_date': fields.date("Date to", required=True),
-        'location_id': fields.many2one('stock.location', 'Location', domain="[('usage', '=', 'internal')]"),
-    }
-    _defaults = {
-               'to_date': lambda *a: time.strftime('%Y-%m-%d'),
-               'from_date': lambda *a: time.strftime('%Y-%m-%d'),
-               'location_id': lambda *a: 12,        ## set location_id to WH/Stock
-               }
-    
-
     def print_report(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
@@ -39,6 +27,22 @@ class stock_report_wizard(osv.osv_memory):
             datas['ids']=[res['id']]
         return self.pool['report'].get_action(cr, uid, [], 'stock_report.stock_report_view', data=datas, context=context)
     
-    # TODO get id for WH/Stock
-    def _get_wh_stock_id(self):
-        pass
+    def _get_wh_stock_id(self, cr, uid, context=None):
+        stock_loc_obj = self.pool.get('stock.location')
+        loc_name = 'Stock'
+        loc_ids = stock_loc_obj.search(cr, uid,[('name','=',loc_name),('usage','=','internal')],context=context)
+        for loc in stock_loc_obj.browse(cr, uid, loc_ids):
+            wh_stock_id = loc.id
+        return wh_stock_id
+        
+    _columns = {
+        'from_date': fields.date("Date from", required=True),
+        'to_date': fields.date("Date to", required=True),
+        'location_id': fields.many2one('stock.location', 'Location', domain="[('usage', '=', 'internal')]"),
+    }
+    
+    _defaults = {
+               'to_date': lambda *a: time.strftime('%Y-%m-%d'),
+               'from_date': lambda *a: time.strftime('%Y-%m-%d'),
+               'location_id': _get_wh_stock_id,        ## set location_id to WH/Stock
+    }
