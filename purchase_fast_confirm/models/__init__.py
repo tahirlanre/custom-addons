@@ -1,0 +1,1 @@
+import purchase_fast_confirm
