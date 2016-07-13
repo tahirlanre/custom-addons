@@ -88,6 +88,8 @@ class Parser(report_sxw.rml_parse):
             
             stock_value = closing_stock * product.standard_price
             
+            # TODO closing_stock should always be +ve
+            
             result={ 
                 'name': product.name,
                 'incoming': total_incoming_stock,
