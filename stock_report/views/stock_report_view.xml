@@ -22,13 +22,10 @@
                                 <strong>To Date</strong>:<br/>
                                 <span t-esc="formatLang(data['form']['to_date'],date=True)"/> 
                             </div>
-							<!--
-								TODO change to understandable location name
-							
                             <div class="col-xs-3">
                                 <strong>Location</strong>:<br/>
-                                <span t-esc="data['form']['location_id']"/> 
-                            </div> -->
+                                <span t-esc="data['form']['location_id'][1]"/> 
+                            </div> 
                         </div>
                         <br/>
                         <table class="table table-condensed">

@@ -14,6 +14,8 @@ import time
 class stock_report_wizard(osv.osv_memory):
     _name = 'stock.report'
     
+    # TODO select to show incoming, outgoing, opening or closing stocks
+    
     _columns = {
         'from_date': fields.date("Date from", required=True),
         'to_date': fields.date("Date to", required=True),
