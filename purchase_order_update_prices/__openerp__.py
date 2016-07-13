@@ -24,6 +24,10 @@
     'summary': 'Update cost price from purchase orders',
     'description': """
 	After confirming purchase order and validating invoice, automatically updates product cost price with respective purchase order line unit price
+    
+    
+    # TODO 
+    Choose to update cost price or not from po line
 	""",
     'author': 'Tahir Aduragba',
     'website': '',
