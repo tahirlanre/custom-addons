@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="wizard_stock_report" model="ir.ui.view">
+			<field name="name">stock.report</field>
+			<field name="model">stock.report</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+				<group colspan="4">
+					<group string="Date Filter">
+						<field name="from_date" />
+						<field name="to_date" />
+						<!--<field name="location_id" />-->
+					</group>
+					<group string="Layout Options">
+						<field name="show_opening" />
+						<field name="show_incoming" />
+						<field name="show_outgoing" />
+					</group>
+				</group>
+                <footer>
+                    <button string="Print" name="print_report" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+				</form>
+			</field>
+		</record>
+
+
+
+        <record id="action_wizard_stock_report" model="ir.actions.act_window">
+            <field name="name">Stock Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.report</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+        </record>
+        <menuitem action="action_wizard_stock_report"
+                  id="menu_action_wizard_stock_report"
+                  parent="stock.next_id_61" sequence="2" />
+
+
+
+	</data>
+</openerp>
