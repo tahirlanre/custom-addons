@@ -3,10 +3,6 @@ from openerp.osv import osv
 from openerp.report import report_sxw
 
 class move_details(report_sxw.rml_parse):
-    
-    def _get_balance(self):
-        test = "Tahir"
-        return test
         
     def _get_move_type(self, form):
         type = form['type']
@@ -64,7 +60,7 @@ class move_details(report_sxw.rml_parse):
             return {}
             
     def _move_details(self, form):
-            
+        # TODO add description
         mov_obj = self.pool.get('stock.move')
         data = []
         result = {}

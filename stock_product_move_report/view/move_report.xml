@@ -32,6 +32,9 @@
                         <br/>
                         <table class="table table-condensed">
                            <thead>
+							   <!--
+							   	TODO add description
+							   -->
                                 <th><strong>Date</strong></th>
                                 <th><strong>Partner</strong></th>
 								<th><strong>Source</strong></th>
