@@ -39,6 +39,7 @@ class move_details(report_sxw.rml_parse):
         
         ids = product_obj.search(self.cr, self.uid, [])
         
+        # TODO change code to use sql queries
         for product in product_obj.browse(self.cr, self.uid, ids):
             move_in = move_obj.search(self.cr, self.uid, [('date','<=', form['date_end'] + ' 23:59:59'),('product_id', '=', product.id),('location_id.usage', 'in', source_in),('location_dest_id.usage', 'not in', source_in), ('state', '=', 'done')])
             move_out = move_obj.search(self.cr, self.uid, [('date','<=', form['date_end'] + ' 23:59:59'),('product_id', '=', product.id),('location_id.usage', 'in', source_out), ('location_dest_id.usage', 'not in', source_out),('state', '=', 'done')])
@@ -60,7 +61,7 @@ class move_details(report_sxw.rml_parse):
             return {}
             
     def _move_details(self, form):
-        # TODO add description
+        # TODO add description field to view
         mov_obj = self.pool.get('stock.move')
         data = []
         result = {}
@@ -73,6 +74,7 @@ class move_details(report_sxw.rml_parse):
         elif(type=="return"):
             source = ["customer"]
         
+        # TODO change code to use sql queries
         move_ids = mov_obj.search(self.cr, self.uid, [('date','>=',form['date_start'] + ' 00:00:00'), ('date','<=',form['date_end'] + ' 23:59:59'), ('location_id.usage', 'in', source), ('location_dest_id.usage', 'not in', source), ('state', '=', 'done')])
         for move in mov_obj.browse(self.cr, self.uid, move_ids):
             result = {
