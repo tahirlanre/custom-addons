@@ -20,7 +20,7 @@ class stock_report_wizard(osv.osv_memory):
         if context is None:
             context = {}
         datas = {'ids': context.get('active_ids', [])}
-        res = self.read(cr, uid, ids, ['from_date', 'to_date', 'location_id'], context=context)
+        res = self.read(cr, uid, ids, ['from_date', 'to_date', 'location_id', 'show_incoming', 'show_outgoing', 'show_opening'], context=context)
         res = res and res[0] or {}
         datas['form'] = res
         if res.get('id',False):
@@ -39,10 +39,16 @@ class stock_report_wizard(osv.osv_memory):
         'from_date': fields.date("Date from", required=True),
         'to_date': fields.date("Date to", required=True),
         'location_id': fields.many2one('stock.location', 'Location', domain="[('usage', '=', 'internal')]"),
+        'show_incoming': fields.boolean('Incoming'),
+        'show_outgoing': fields.boolean('Outgoing'),
+        'show_opening': fields.boolean('Opening')
     }
     
     _defaults = {
                'to_date': lambda *a: time.strftime('%Y-%m-%d'),
                'from_date': lambda *a: time.strftime('%Y-%m-%d'),
                'location_id': _get_wh_stock_id,        ## set location_id to WH/Stock
+               'show_incoming': False,
+               'show_outgoing': False,
+               'show_opening': False,
     }

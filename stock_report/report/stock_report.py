@@ -17,10 +17,15 @@ class Parser(report_sxw.rml_parse):
             'get_stock_report': self._get_stock_report,
         })
         self.context = context
-        
+    
+      
     def _get_stock_report(self, form):
         product_obj = self.pool.get('product.product')
         obj_precision = self.pool.get('decimal.precision')
+        
+        show_incoming = form['show_incoming']
+        show_outgoing = form['show_outgoing']
+        show_opening = form['show_opening']
         
         account_prec = obj_precision.precision_get(self.cr, self.uid, 'Account')
         price_prec = obj_precision.precision_get(self.cr, self.uid, 'Product Price')
@@ -40,38 +45,41 @@ class Parser(report_sxw.rml_parse):
             stock_value = 0
             
             ### Opening Stock
-            self.cr.execute("SELECT SUM(h.quantity) FROM stock_history h, stock_move m WHERE h.move_id=m.id AND h.product_id=%s AND h.location_id=%s AND m.date < %s GROUP BY h.product_id",
+            if show_opening:
+                self.cr.execute("SELECT SUM(h.quantity) FROM stock_history h, stock_move m WHERE h.move_id=m.id AND h.product_id=%s AND h.location_id=%s AND m.date < %s GROUP BY h.product_id",
                        (product.id, form['location_id'][0], form['from_date'] + ' 00:00:00'))
-            res = self.cr.fetchone()
-            opening_stock_temp = res and res[0] or 0
-            opening_stock_temp = opening_stock_temp * factor
-            opening_stock = round(opening_stock_temp, account_prec)
+                res = self.cr.fetchone()
+                opening_stock_temp = res and res[0] or 0
+                opening_stock_temp = opening_stock_temp * factor
+                opening_stock = round(opening_stock_temp, account_prec)
             
             ### Total Incoming
-            self.cr.execute("SELECT SUM(h.quantity) \
+            if show_incoming:
+                self.cr.execute("SELECT SUM(h.quantity) \
                         FROM stock_history h, stock_move m \
                         WHERE h.move_id=m.id AND \
                         h.product_id=%s AND h.location_id=%s AND h.quantity > 0 AND \
                         m.date >= %s AND m.date <= %s \
                         GROUP BY h.product_id",
                         (product.id, form['location_id'][0], form['from_date'] + ' 00:00:00', form['to_date'] + ' 23:59:59'))
-            res = self.cr.fetchone()
-            total_incoming_stock_temp = res and res[0] or 0
-            total_incoming_stock_temp = total_incoming_stock_temp * factor
-            total_incoming_stock = round(total_incoming_stock_temp, account_prec)
+                res = self.cr.fetchone()
+                total_incoming_stock_temp = res and res[0] or 0
+                total_incoming_stock_temp = total_incoming_stock_temp * factor
+                total_incoming_stock = round(total_incoming_stock_temp, account_prec)
             
             ### Total Outgoing
-            self.cr.execute("SELECT SUM(h.quantity) \
+            if show_outgoing:
+                self.cr.execute("SELECT SUM(h.quantity) \
                         FROM stock_history h, stock_move m \
                         WHERE h.move_id=m.id AND \
                         h.product_id=%s AND h.location_id=%s AND h.quantity < 0 AND \
                         m.date >= %s AND m.date <= %s \
                         GROUP BY h.product_id",
                         (product.id, form['location_id'][0], form['from_date'] + ' 00:00:00', form['to_date'] + ' 23:59:59'))
-            res = self.cr.fetchone()
-            total_outgoing_stock_temp = res and res[0] or 0
-            total_outgoing_stock_temp = abs(total_outgoing_stock_temp * factor)
-            total_outgoing_stock = round(total_outgoing_stock_temp, account_prec)
+                res = self.cr.fetchone()
+                total_outgoing_stock_temp = res and res[0] or 0
+                total_outgoing_stock_temp = abs(total_outgoing_stock_temp * factor)
+                total_outgoing_stock = round(total_outgoing_stock_temp, account_prec)
             
             ### Closing Stock
             this_day = time.strftime('%Y-%m-%d')

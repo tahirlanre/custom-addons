@@ -6,15 +6,24 @@
 			<field name="model">stock.report</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
-				<form string="Report Options">
-					<group col="2" colspan="2">
+				<form>
+				<group colspan="4">
+					<group string="Date Filter">
 						<field name="from_date" />
 						<field name="to_date" />
 						<!--<field name="location_id" />-->
-                        <newline />
-                        <button string="Cancel" special="cancel" icon="gtk-cancel" />
-                        <button name="print_report" string="Print" type="object" icon="gtk-print" default_focus="1" /> 
-                    </group>
+					</group>
+					<group string="Layout Options">
+						<field name="show_opening" />
+						<field name="show_incoming" />
+						<field name="show_outgoing" />
+					</group>
+				</group>
+                <footer>
+                    <button string="Print" name="print_report" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
 				</form>
 			</field>
 		</record>
