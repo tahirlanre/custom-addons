@@ -21,10 +21,11 @@
 
 
 {
-    'name': 'Restrict Menu & Button Items to Administrator',
+    'name': 'Hide Menu & Button Items',
     'version': '1.0.0',
     'category': '',
     'description': """
+        - Hide update button in product form view
     """,
     'author': 'Tahir Aduragba',
     'depends': ['base','stock','account'],
