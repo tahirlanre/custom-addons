@@ -13,9 +13,7 @@ import time
 
 class stock_report_wizard(osv.osv_memory):
     _name = 'stock.report'
-    
-    # TODO select to show incoming, outgoing, opening or closing stocks
-    
+        
     def print_report(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
