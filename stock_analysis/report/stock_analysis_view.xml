@@ -10,6 +10,7 @@
                  <field name="product_id" type="row"/>
                  <field name="location_id" type="col"/>
                  <field name="qty" type="measure"/>
+				 <field name="stock_value" type="measure"/>
              </graph>
          </field>
     </record>
@@ -53,6 +54,10 @@
     </record>
 
     <menuitem action="action_stock_analysis_graph" id="menu_action_stock_analysis_graph" parent="stock.next_id_61"/>
+	
+	<!--
+		TODO SNL: hide Stock Valuation menu and rename Stock Analysis
+	-->
 
 </data>
 </openerp>

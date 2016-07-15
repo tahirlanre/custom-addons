@@ -10,12 +10,15 @@ class StockAnalysis(models.Model):
     _name = 'stock.analysis'
     _auto = False
     _rec_name = 'product_id'
+    
+    
 
     product_id = fields.Many2one(
         'product.product', string='Product', readonly=True)
     location_id = fields.Many2one(
         'stock.location', string='Location', readonly=True)
     qty = fields.Float(string='Quantity', readonly=True)
+    stock_value = fields.Float(string='Stock Value', readonly=True)
     lot_id = fields.Many2one(
         'stock.production.lot', string='Lot', readonly=True)
     package_id = fields.Many2one(
@@ -31,19 +34,22 @@ class StockAnalysis(models.Model):
         cr.execute(
             """CREATE or REPLACE VIEW %s as (
             SELECT
-                quant.id AS id,
-                quant.product_id AS product_id,
-                quant.location_id AS location_id,
-                quant.qty AS qty,
-                quant.lot_id AS lot_id,
-                quant.package_id AS package_id,
-                quant.in_date AS in_date,
-                quant.company_id,
-                template.categ_id AS categ_id
-            FROM stock_quant AS quant
-            JOIN product_product prod ON prod.id = quant.product_id
-            JOIN product_template template
-                ON template.id = prod.product_tmpl_id
+                           quant.id AS id,
+                           quant.product_id AS product_id,
+                           quant.location_id AS location_id,
+                           quant.qty AS qty,
+                           quant.lot_id AS lot_id,
+                           quant.package_id AS package_id,
+                           quant.in_date AS in_date,
+                           quant.company_id,
+                           template.categ_id AS categ_id,
+                           (qty * prop.value_float) as stock_value
+                       FROM stock_quant AS quant
+                       JOIN product_product prod ON prod.id = quant.product_id
+                       JOIN product_template template
+                           ON template.id = prod.product_tmpl_id
+                       LEFT JOIN ir_property prop ON prop.res_id = 'product.template,' || prod.product_tmpl_id and prop.name = 'standard_price'
+                       GROUP BY quant.id, template.categ_id, prop.id
             )"""
             % (self._table)
         )
