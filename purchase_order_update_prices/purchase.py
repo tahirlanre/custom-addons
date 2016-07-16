@@ -16,32 +16,36 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv, orm
-from openerp import SUPERUSER_ID, workflow
+from openerp.osv import osv, orm
+from openerp import SUPERUSER_ID, workflow, models, fields
 
 
 class purchase_order(orm.Model):
     _inherit = 'purchase.order'
     
-    
     def _update_product_cost_price(self, cr, uid, ids, context=None):
         
         purchase_order_line_obj = self.pool.get('purchase.order.line')
         product_template_obj = self.pool.get('product.template')
-            
+        
         ## update product cost with unit price of respective po line 
         current_po = self.browse(cr, uid, ids, context=context)
         for po in current_po:
             for po_line in po.order_line:
-                product_tmpl_id = po_line.product_id.product_tmpl_id.id
+                product_tmpl = po_line.product_id.product_tmpl_id
                 update_price = po_line.price_unit
-                ## check if current cost price is same as po line unit cost (update_price)
-                if po_line.product_id.product_tmpl_id.standard_price != update_price:
+                ## check if user chose to update cost price & current cost price is same as po line unit cost (update_price)
+                if po_line.update_cost_price and (product_tmpl.standard_price != update_price):
                     vals = {
                         'standard_price' : update_price
                     }
-                    product_template_obj.write(cr,uid,[product_tmpl_id],vals,context=context)
-        
+                    product_template_obj.write(cr,uid,[product_tmpl.id],vals,context=context)
+
+class purchase_order_line(models.Model):
+    _inherit = 'purchase.order.line'
+    
+    update_cost_price = fields.Boolean(string="Update Cost Price?" ,help="Select to update cost price of product after confirming invoice")
+     
 class account_invoice(osv.Model):
     _inherit = 'account.invoice'
 
