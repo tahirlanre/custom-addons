@@ -29,6 +29,7 @@ class StockAnalysis(models.Model):
     company_id = fields.Many2one(
         'res.company', string='Company', readonly=True)
 
+    ## Tahir Aduragba - update sql query to calculate stock value
     def init(self, cr):
         tools.drop_view_if_exists(cr, self._table)
         cr.execute(

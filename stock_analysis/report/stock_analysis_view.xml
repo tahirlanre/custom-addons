@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data>
-
+	<!--
+		add new field - stock_value to graph view
+	-->
     <record id="stock_analysis_graph" model="ir.ui.view">
          <field name="name">stock.analysis.graph</field>
          <field name="model">stock.analysis</field>
@@ -43,8 +45,11 @@
         </field>
     </record>
 
+	<!--
+		replace default Stock Valuation menu with a much faster and concise view
+	-->
     <record id="action_stock_analysis_graph" model="ir.actions.act_window">
-        <field name="name">Stock Analysis</field>
+        <field name="name">Stock Valuation</field>
         <field name="res_model">stock.analysis</field>
         <field name="view_type">form</field>
         <field name="view_mode">graph</field>
@@ -53,11 +58,26 @@
         <field name="context">{'search_default_internal_location':1}</field>
     </record>
 
-    <menuitem action="action_stock_analysis_graph" id="menu_action_stock_analysis_graph" parent="stock.next_id_61"/>
+    <menuitem action="action_stock_analysis_graph" 
+		id="menu_action_stock_analysis_graph" 
+		parent="stock.next_id_61" 
+		groups="stock.group_locations"
+		sequence="1"/>
+		
+	
+	<record id="make_invisible" model="res.groups">
+		<field name="name">Invisible</field>
+	</record>
 	
 	<!--
-		TODO SNL: hide Stock Valuation menu and rename Stock Analysis
+		hide default Stock Valuation menu
 	-->
+	<record model="ir.ui.menu" id="stock_account.menu_action_wizard_valuation_history">
+		<field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+	</record>
+	
+   
+
 
 </data>
 </openerp>
