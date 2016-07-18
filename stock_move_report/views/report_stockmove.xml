@@ -37,7 +37,12 @@
                                 <th><strong>Product</strong></th>
 								<th><strong>Description</strong></th>
                                 <th><strong>Quantity</strong></th>
-                                <th class="text-right"><strong>Destination</strong></th>
+								<t t-if="move_type(data['form']) == 'Inward'">
+                                	<th class="text-right"><strong>Source</strong></th>
+								</t>
+								<t t-if="move_type(data['form']) == 'Outward'">
+                                	<th class="text-right"><strong>Destination</strong></th>
+								</t>
                                 <th class="text-right"><strong>Inventory Value</strong></th>
                             </thead>
                             <tbody>
@@ -54,9 +59,16 @@
                                     <td>
                                         <span t-esc="line_ids['qty']"/>
                                     </td>
-                                    <td class="text-right">
-                                        <span t-esc="line_ids['dest_id']"/>
-                                    </td>
+									<t t-if="move_type(data['form']) == 'Inward'">
+                                    	<td class="text-right">
+                                        	<span t-esc="line_ids['source_id']"/>
+                                    	</td>
+									</t>
+									<t t-if="move_type(data['form']) == 'Outward'">
+                                    	<td class="text-right">
+                                        	<span t-esc="line_ids['dest_id']"/>
+                                    	</td>
+									</t>
                                     <td class="text-right">
                                         <span t-esc="formatLang(line_ids['inventory_value'])"/>
                                     </td>

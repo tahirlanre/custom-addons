@@ -34,20 +34,17 @@ class move_details(report_sxw.rml_parse):
         result = {}
         move_type = form['type']
         
-        if(move_type =="in"):
-            source = ["supplier", "inventory"]
-        elif(move_type=="out"):
-            source = ["internal"]
-        elif(move_type=="return"):
-            source = ["customer"]
+        if(move_type =="in"): ## destination is an internal location
+             move_ids = mov_obj.search(self.cr, self.uid, [('date','>=',form['date_start'] + ' 00:00:00'), ('date','<=',form['date_end'] + ' 23:59:59'), ('location_dest_id.usage', '=', 'internal'), ('state', '=', 'done')])
+        elif(move_type=="out"): ## source is an internal location
+             move_ids = mov_obj.search(self.cr, self.uid, [('date','>=',form['date_start'] + ' 00:00:00'), ('date','<=',form['date_end'] + ' 23:59:59'), ('location_id.usage', '=', 'internal'), ('state', '=', 'done')])         
         
-        # TODO change code to use sql queries
-        move_ids = mov_obj.search(self.cr, self.uid, [('date','>=',form['date_start'] + ' 00:00:00'), ('date','<=',form['date_end'] + ' 23:59:59'), ('location_id.usage', 'in', source), ('location_dest_id.usage', 'not in', source), ('state', '=', 'done')])
         for move in mov_obj.browse(self.cr, self.uid, move_ids):
             result = {
                 'move_date': move.date,
                 'product_id': move.product_id.name,
                 'dest_id': move.location_dest_id.name,
+                'source_id': move.location_id.name,
                 'qty': move.product_uom_qty,
                 'inventory_value': self._get_inventory_value(move),
                 'description': move.name,

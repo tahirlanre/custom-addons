@@ -29,7 +29,7 @@ class move_details(osv.osv_memory):
         'picking_type_id': fields.many2one('stock.picking.type', 'Picking Type'),
         'date_start': fields.date('Date Start', required=True),
         'date_end': fields.date('Date End', required=True),
-        'type': fields.selection([('in','Inward'),('out','Outward'),('return','Returns')],string='Type',required=True),
+        'type': fields.selection([('in','Inward'),('out','Outward')],string='Type',required=True),
     }
     
     
