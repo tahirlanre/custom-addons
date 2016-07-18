@@ -28,7 +28,6 @@ class move_details(report_sxw.rml_parse):
         return 0
     
     def _move_details(self, form):
-        # TODO add description field to view
         mov_obj = self.pool.get('stock.move')
         data = []
         result = {}
