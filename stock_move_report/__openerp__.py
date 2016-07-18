@@ -21,12 +21,12 @@
 
 {
     'name': 'Stock Move Report',
-    'version': '1.0.1',
+    'version': '1.1',
     'category': 'Warehouse',
     'sequence': 6,
     'summary': '',
     'description': """
-Stock Move Report (In, Out, Return)
+Stock Move Report (Inward & Outward)
 ===========================
 
 
