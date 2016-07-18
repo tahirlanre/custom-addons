@@ -83,7 +83,7 @@ class move_details(report_sxw.rml_parse):
                 'dest_id': move.location_dest_id.name,
                 'qty': move.product_uom_qty,
                 'inventory_value': self._get_inventory_value(move),
-                'partner': move.picking_id.partner_id.name,
+                'description': move.name,
                 'origin' : move.picking_id.origin
             }
             

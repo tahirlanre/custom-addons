@@ -35,7 +35,7 @@
                             <thead>
                                 <th><strong>Date</strong></th>
                                 <th><strong>Product</strong></th>
-								<th><strong>Source</strong></th>
+								<th><strong>Description</strong></th>
                                 <th><strong>Quantity</strong></th>
                                 <th class="text-right"><strong>Destination</strong></th>
                                 <th class="text-right"><strong>Inventory Value</strong></th>
@@ -49,7 +49,7 @@
                                         <span t-esc="line_ids['product_id']"/>
                                     </td>
                                     <td>
-                                        <span t-esc="line_ids['origin']"/>
+                                        <span t-esc="line_ids['description']"/>
                                     </td>
                                     <td>
                                         <span t-esc="line_ids['qty']"/>
