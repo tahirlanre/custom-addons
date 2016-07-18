@@ -5,15 +5,12 @@ from openerp.report import report_sxw
 class move_details(report_sxw.rml_parse):
         
     def _get_move_type(self, form):
-        type = form['type']
+        move_type = form['type']
         
-        if(type =="in"):
+        if(move_type =="in"):
             return "Inward"
-        elif(type=="out"):
+        elif(move_type=="out"):
             return "Outward"
-        elif(type=="return"):
-            return "Returns"
-        
         return ""
     
     def _get_inventory_value(self, move):
@@ -23,9 +20,8 @@ class move_details(report_sxw.rml_parse):
         company_id = user_obj.browse(self.cr, self.uid, self.uid).company_id.id
         product_template = move.product_id.product_tmpl_id.id
         cost = product_template_object.get_history_price(self.cr, self.uid, product_template, company_id, move.date)
-        if cost:
-            return cost * move.product_uom_qty
-        return 0
+        cost = cost * move.product_uom_qty
+        return cost
     
     def _move_details(self, form):
         mov_obj = self.pool.get('stock.move')
@@ -49,12 +45,9 @@ class move_details(report_sxw.rml_parse):
                 'description': move.name,
                 'origin' : move.picking_id.origin
             }
-            
             data.append(result)
-        if data:
-            return data
-        else:
-            return {}
+            
+        return data
         
     def __init__(self, cr, uid, name, context):
         super(move_details, self).__init__(cr, uid, name, context=context)
