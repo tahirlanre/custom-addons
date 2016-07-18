@@ -27,51 +27,18 @@ class move_details(report_sxw.rml_parse):
             return cost * move.product_uom_qty
         return 0
     
-    def _qty_available(self, form):
-        move_obj = self.pool.get('stock.move')
-        product_obj = self.pool.get('product.product')
-        total_in = 0
-        total_out = 0
-        qty_available = 0
-        data = []
-        source_in= ["supplier", "inventory", "customer"]
-        source_out= ["internal"]
-        
-        ids = product_obj.search(self.cr, self.uid, [])
-        
-        # TODO change code to use sql queries
-        for product in product_obj.browse(self.cr, self.uid, ids):
-            move_in = move_obj.search(self.cr, self.uid, [('date','<=', form['date_end'] + ' 23:59:59'),('product_id', '=', product.id),('location_id.usage', 'in', source_in),('location_dest_id.usage', 'not in', source_in), ('state', '=', 'done')])
-            move_out = move_obj.search(self.cr, self.uid, [('date','<=', form['date_end'] + ' 23:59:59'),('product_id', '=', product.id),('location_id.usage', 'in', source_out), ('location_dest_id.usage', 'not in', source_out),('state', '=', 'done')])
-            total_in = 0
-            total_out = 0
-            for m in move_obj.browse(self.cr, self.uid, move_in):
-                total_in += m.product_uom_qty
-            for m in move_obj.browse(self.cr, self.uid, move_out):
-                total_out += m.product_uom_qty
-            result={ 
-                'name': product.name,
-                'qty_available': total_in - total_out
-            }
-            
-            data.append(result)
-        if(data):
-            return data
-        else:
-            return {}
-            
     def _move_details(self, form):
         # TODO add description field to view
         mov_obj = self.pool.get('stock.move')
         data = []
         result = {}
-        type = form['type']
+        move_type = form['type']
         
-        if(type =="in"):
+        if(move_type =="in"):
             source = ["supplier", "inventory"]
-        elif(type=="out"):
+        elif(move_type=="out"):
             source = ["internal"]
-        elif(type=="return"):
+        elif(move_type=="return"):
             source = ["customer"]
         
         # TODO change code to use sql queries
@@ -100,7 +67,6 @@ class move_details(report_sxw.rml_parse):
             'time': time,
             'move_details': self._move_details,
             'move_type': self._get_move_type,
-            'qty_available': self._qty_available,
             
         })
 
