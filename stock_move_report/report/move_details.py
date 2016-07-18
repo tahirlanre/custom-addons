@@ -98,7 +98,6 @@ class move_details(report_sxw.rml_parse):
         
         self.localcontext.update({
             'time': time,
-            'getbalance': self._get_balance,
             'move_details': self._move_details,
             'move_type': self._get_move_type,
             'qty_available': self._qty_available,

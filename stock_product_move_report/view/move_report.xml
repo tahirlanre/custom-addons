@@ -65,10 +65,10 @@
                                     <td>
                                         <span t-esc="move.name"/>
                                     </td>
-                                    <td class="text-right">
+                                    <td>
 										<span t-esc="formatLang(stock_qty_in(move),digits=0)"/>
                                     </td>
-                                    <td class="text-right">
+                                    <td>
                                         <span t-esc="formatLang(stock_qty_out(move),digits=0)"/>
                                     </td>
                                     <td class="text-right">
@@ -84,9 +84,9 @@
 								</td>
 								<td>
 								</td>
-								<td class="text-right">
+								<td>
 								</td>
-								<td class="text-right">
+								<td>
 								</td>
 								<td class="text-right">
 									<strong t-esc="formatLang(qty_available(data['form']),digits=0)"></strong>
