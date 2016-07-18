@@ -29,9 +29,9 @@ class Parser(report_sxw.rml_parse):
         stock_in = 0
         stock_out = 0
         
-        if (move.location_id.usage in source_in) and (move.location_dest_id.usage not in source_in):
+        if (move.location_dest_id.usage == 'internal'):
             stock_in = move.product_uom_qty
-        elif (move.location_id.usage in source_out) and (move.location_dest_id.usage not in source_out):
+        elif (move.location_id.usage == 'internal'):
             stock_out = move.product_uom_qty
         
         return stock_in, stock_out
@@ -40,7 +40,7 @@ class Parser(report_sxw.rml_parse):
         move_obj = self.pool.get('stock.move')
         product_obj = self.pool.get('product.product')
         moves = []
-        move_ids = move_obj.search(self.cr, self.uid, [('date','>=',form['date_from'] + ' 00:00:00'), ('date','<=',form['date_to'] + ' 23:59:59'),('product_id', '=', form['product_id'][0]),('state', '=', 'done')],order="date")
+        move_ids = move_obj.search(self.cr, self.uid, [('date','>=',form['date_from'] + ' 00:00:00'), ('date','<=',form['date_to'] + ' 23:59:59'),('product_id', '=', form['product_id'][0]),'|',('location_dest_id.usage','=','internal'),('location_id.usage','=','internal'),('state', '=', 'done')],order="date")
         moves = move_obj.browse(self.cr, self.uid, move_ids)
         return moves
         
