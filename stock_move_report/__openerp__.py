@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+# TODO update description & add static/description folder
 
 {
     'name': 'Stock Move Report',
