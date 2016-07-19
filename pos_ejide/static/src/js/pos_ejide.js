@@ -8,6 +8,28 @@ openerp.pos_ejide = function(instance){
     var PosModelSuper = module.PosModel;
     var round_di = instance.web.round_decimals;
 	
+    module.PosModel = module.PosModel.extend({
+        load_server_data: function(){
+            var self = this;
+            var loaded = PosModelSuper.prototype.load_server_data.call(this);
+
+            loaded = loaded.then(function(){
+                return self.fetch(
+                    'product.product',
+                    ['qty_available'],
+                    [['sale_ok','=',true],['available_in_pos','=',true]],
+                    {'location': self.config.stock_location_id[0]}
+                );
+
+            }).then(function(products){
+                $.each(products, function(){
+                    $.extend(self.db.get_product_by_id(this.id) || {}, this)
+                });
+                return $.when()
+            })
+            return loaded;
+        },
+	});
     module.Order = module.Order.extend({
         
        initialize: function(attributes){
