@@ -22,15 +22,16 @@
 
 {
     'name': 'Hide Menu & Button Items',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'category': '',
     'description': """
         - Hide update button in product form view
+        - Hide Cancel Entry button in journal entries form view for non-admin users 
     """,
     'author': 'Tahir Aduragba',
     'depends': ['base','stock','account'],
     'data': [
-        'views/restrict.xml',
+        #'views/restrict.xml',
         'views.xml',
     ],
     'demo': [],

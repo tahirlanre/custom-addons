@@ -22,5 +22,19 @@
             </xpath>
 	    </field>
 	</record>
+	<record id="view_move_form_restrict_cancel" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+		<field name="inherit_id" ref="account.view_move_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//header" position="replace">
+				<header>
+                	<button name="button_validate" states="draft" string="Post" type="object" class="oe_highlight" groups="account.group_account_invoice"/>
+                	<button name="button_cancel" states="posted" string="Cancel Entry" type="object" groups="base.group_erp_manager"/>
+               	 	<field name="state" widget="statusbar"/>
+			</header>
+			</xpath>
+		</field>
+	</record>
 </data>
 </openerp>
