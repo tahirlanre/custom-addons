@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <template id="partner_summary">
+
+            <style type="text/css">
+                .table-condensed > tbody {
+                    font-size:12px;
+                }
+
+                .table-condensed > tbody > tr > td{
+                    padding: 2px 0px 2px 0px;
+                }
+
+                .table-condensed > thead > tr > th{
+                    padding: 0;
+                }
+
+                .background-color{
+                    background: #e0e0e0;
+                }
+
+                .italic {
+                    font-style: italic;
+                }
+            </style>
+
+            <t t-call="report.html_container">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 80px;"/>
+                        </div>
+
+                         <h2 class="text-center">Partner Account Statement</h2>
+
+                            <div>
+                                Start Period: <span t-esc="formatLang(data['form']['from_date'] or time.localtime(),date=True)"/><br/>
+                            </div>
+                            <div>
+                                End Period: <span t-esc="formatLang(data['form']['to_date'] or time.localtime(),date=True)"/>
+                            </div>
+
+                        <br/>
+
+                        <table class="table table-condensed">
+                        <thead>
+                        <tr class="background-color">
+                            <th>Date</th>
+                            <th>Ref</th>
+                            <th>Entry Label</th>
+                            <th class="text-right">Debit</th>
+                            <th class="text-right">Credit</th>
+                            <th class="text-right">Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <t t-foreach="docs" t-as="partner">
+                            <td colspan="6">
+                                    <strong t-esc="partner.ref"/>
+                                    - <strong t-esc="partner.name"/>
+                            </td>
+	                        <tr class="italic" t-if="initial_balance(data['form'],context)">
+	                            <td>
+	                                <t>Initial Balance</t>
+	                            </td>
+	                            <td>
+
+	                            </td>
+	                            <td>
+
+	                            </td>
+	                            <td class="text-right">
+	                                <t t-esc="formatLang(get_summary_initial_amounts(data['form'],context)['debit'])"/>
+	                            </td>
+	                            <td class="text-right">
+	                                <t t-esc="formatLang(get_summary_initial_amounts(data['form'],context)['credit'])"/>
+	                            </td>
+	                            <td class="text-right">
+	                                <t t-esc="formatLang(get_summary_initial_amounts(data['form'],context)['balance'])"/>
+	                            </td>
+	                        </tr>
+                            <t t-foreach="get_summary_moves_data(data['form'],context)" t-as="line">
+							<tr>
+								<td>
+									<t t-esc="formatLang(line['move'].date, date=True)"/>
+								</td>
+								<td>
+									<t t-esc="line['move'].name"/>
+								</td>
+								<td>
+									<t t-esc="line['move_line'].name"/>
+								</td>
+								<td class="text-right">
+									<t t-esc="formatLang(line['debit'])"/>
+								</td>
+								<td class="text-right">
+									<t t-esc="formatLang(line['credit'])"/>
+								</td>
+								<td class="text-right">
+									<t t-esc="formatLang(line['balance'])"/>
+								</td>
+							</tr>
+                            </t>
+                            <tr class="background-color">
+                                <td colspan="5">
+                                    <strong>Cumulated Balance on Account</strong>
+                                </td>
+                                <td class="text-right">
+                                    <strong t-esc="formatLang(get_summary_final_balance(data['form'],context)[0],currency_obj=res_company.currency_id)"/>
+                                </td>
+                            </tr>
+                        </t>
+                        </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>
