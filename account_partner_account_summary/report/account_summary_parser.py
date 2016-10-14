@@ -157,7 +157,7 @@ class Parser(report_sxw.rml_parse):
 
         other_filters = ""
         if to_date:
-            other_filters += " AND m.date < \'%s\'" % to_date
+            other_filters += " AND m.date <= \'%s\'" % to_date
         if company_id:
             other_filters += " AND m.company_id = %i" % company_id
 
