@@ -1,6 +1,12 @@
 <openerp> 
     <data>
         <template id="stock_report_view">
+            <style type="text/css">
+                .background-color{
+                    background: #e0e0e0;
+                }
+            </style>
+			
             <t t-call="report.html_container">
                 <t t-call="report.internal_layout">
                     <div class="page">
@@ -74,6 +80,28 @@
 										<span t-esc="formatLang(line['stock_value'])"/>
 									</td>
 								</tr>
+	                            <tr class="background-color">
+	                                <td>
+	                                    <strong>Total</strong>
+	                                </td>
+									<t t-if="data['form']['show_opening']">
+										<td class = "text-right">
+										</td>
+									</t>
+									<t t-if="data['form']['show_incoming']">
+										<td class = "text-right">
+										</td>
+									</t>
+									<t t-if="data['form']['show_outgoing']">
+										<td class = "text-right">
+										</td>
+									</t>
+									<td class = "text-right">
+									</td>
+	                                <td class="text-right">
+	                                    <strong t-esc="formatLang(get_total_stock_value())"/>
+	                                </td>
+	                            </tr>
                             </tbody>
                         </table>
                     </div>

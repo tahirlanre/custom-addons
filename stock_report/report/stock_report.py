@@ -13,8 +13,10 @@ class Parser(report_sxw.rml_parse):
     
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
+        self.total_stock_value = 0
         self.localcontext.update({
             'get_stock_report': self._get_stock_report,
+            'get_total_stock_value': self._get_total_stock_value,
         })
         self.context = context
     
@@ -33,6 +35,7 @@ class Parser(report_sxw.rml_parse):
         data = []
         
         products = product_obj.browse(self.cr, self.uid, product_ids)
+        
         
         for product in products:
             
@@ -94,7 +97,9 @@ class Parser(report_sxw.rml_parse):
             closing_stock_temp = closing_stock_temp * factor
             closing_stock = round(closing_stock_temp, account_prec)
             
-            stock_value = closing_stock * product.standard_price
+            product_history_price = self._get_product_history_price(product, form['to_date'])
+            stock_value = closing_stock * product_history_price
+            self.total_stock_value += stock_value 
             
             ## change qty to int based on uom rounding
             if (product.uom_id.rounding % 1) == 0:
@@ -118,8 +123,20 @@ class Parser(report_sxw.rml_parse):
             return data
         else:
             return {}
-        
-        
+            
+    def _get_total_stock_value(self):
+        return self.total_stock_value or 0.0
+    
+    def _get_product_history_price(self, product, date):
+        cost = 0.0
+        product_template_object = self.pool.get('product.template')
+        user_obj = self.pool.get('res.users')
+        company_id = user_obj.browse(self.cr, self.uid, self.uid).company_id.id
+        product_template = product.product_tmpl_id.id
+        cost = product_template_object.get_history_price(self.cr, self.uid, product_template, company_id, date + ' 23:59:59')
+        #cost = cost * move.product_uom_qty
+        return cost
+         
 
 class report_stock_report(osv.AbstractModel):
     _name = 'report.stock_report.stock_report_view'
