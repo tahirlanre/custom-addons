@@ -7,14 +7,51 @@
         <field name="arch" type="xml">
 			<xpath expr="//graph[@string='Point of Sale Analysis']" position="replace">
 	         <graph string="Point of Sale Analysis" type="bar">
-	            <field name="product_categ_id" type="row"/>
+	            <field name="product_id" type="row"/>
 	            <field name="date" interval="month" type="col"/>
 	          <!--<field name="product_qty" type="measure"/>-->
-	            <field name="price_total" type="measure"/>
+	            <field name="product_qty" type="measure"/>
+				
 	        </graph>
 			</xpath>
         </field>
 </record>
+
+<record id="view_report_pos_order_search_custom" model="ir.ui.view">
+    <field name="name">report.pos.order.search</field>
+    <field name="model">report.pos.order</field>
+	<field name="inherit_id" ref="point_of_sale.view_report_pos_order_search"/>
+    <field name="arch" type="xml">
+        <xpath expr="//search/filter[@string='Year']" position="after">
+			<filter string="Month" name="month" domain="[('date','&lt;=', time.strftime('%%Y-%%m-%%d')),('date','&gt;=',time.strftime('%%Y-%%m-01'))]" help="POS ordered created during current month"/>
+			<filter string="Last Week" name="week" domain="[('date','&gt;=',(context_today()+relativedelta(weeks=-2,days=1,weekday=0)).strftime('%%Y-%%m-%%d')),('date','&lt;=',(context_today()+relativedelta(weeks=-1,weekday=6)).strftime('%%Y-%%m-%%d'))]" help="POS ordered created during current week"/>
+		</xpath>
+    </field>
+</record>
+
+<record id="action_report_pos_order_all_custom" model="ir.actions.act_window">
+    <field name="name">Orders Analysis</field>
+    <field name="res_model">report.pos.order</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">graph</field>
+    <field name="search_view_id" ref="view_report_pos_order_search_custom"/>
+    <field name="context">{'group_by_no_leaf':1,'search_default_month':1,'group_by':[]}</field>
+</record>
+
+<menuitem action="action_report_pos_order_all_custom" id="menu_report_pos_order_all" parent="point_of_sale.menu_point_rep" sequence="3"/>
+
+<record id="make_invisible" model="res.groups">
+	<field name="name">Invisible</field>
+</record>
+
+<!--
+	hide default Order Analysis menu
+-->
+<record model="ir.ui.menu" id="point_of_sale.menu_report_pos_order_all">
+	<field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+</record>
+
+
   </data>
 </openerp>
 
