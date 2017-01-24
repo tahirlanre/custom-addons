@@ -20,8 +20,8 @@
             </div>-->
 			<br />
 				<div class="pos-center-receipt-heading">EJIDE NIGERIA LIMITED</div>
-                <div class="pos-center-receipt-heading">SULEJA BRANCH</div>
-				<div class="pos-center-receipt-address">Phone: 08172046712, 08056409792</div>
+                <div class="pos-center-receipt-heading">DEIDEI BRANCH</div>
+				<div class="pos-center-receipt-address">Phone: 08172046711</div>
                 <!--<div class="pos-center-receipt-heading">OFFICE ADDRESS</div>
                 <div class="pos-center-receipt-address">Shop No. 7, Daniel Ogbaje street</div>
                 <div class="pos-center-receipt-address">Garki II Model Market, Garki-Abuja</div>
@@ -45,7 +45,7 @@
                 
                 <hr />
 					<table style="font-weight:bold">
-					<td>Description of Products</td> <td class="pos-right-align">Amount</td>
+					<td>Description of Products</td> <td class="pos-right-align-custom">Amount</td>
 					</table>
                 <hr/>
 				<table >
@@ -65,7 +65,7 @@
                             </div>
                     </t>
 					
-					<div style="font-weight:bold" class="pos-right-align">
+					<div style="font-weight:bold" class="pos-right-align-custom">
 						<t t-esc="widget.format_currency(orderline.get_display_price())"/>
 					</div>
                     <hr/>   
@@ -75,25 +75,40 @@
 	            <table>
 	                <tr>
 	                    <td>Subtotal:</td>
-	                    <td class="pos-right-align">
+	                    <td class="pos-right-align-custom">
 	                        <t t-esc="widget.format_currency(order.getSubtotal())"/>
 	                    </td>
 	                </tr>
 	                <tr>
 	                    <td>Discount:</td>
-	                    <td class="pos-right-align">
+	                    <td class="pos-right-align-custom">
 	                        <t t-esc="widget.format_currency(order.getDiscountTotal())"/>
 	                    </td>
 	                </tr>
 	                <tr class="emph">
 	                    <td>Total:</td>
-	                    <td class="pos-right-align">
+	                    <td class="pos-right-align-custom">
 	                        <t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/>
 	                    </td>
 	                </tr>
+					<table>
+						<tr t-foreach="paymentlines" t-as="line">
+							<t t-if="line.amount >= 0  ">
+	                            <t t-if="line.name != 'Discount Journal (NGN)'">
+								<td>
+									<t t-esc="line.name"/>
+								</td>
+								<td class="pos-right-align-custom">
+									<t t-esc="widget.format_currency(line.get_amount())"/>
+								</td>
+	                            </t>
+							</t>
+						</tr>
+					</table>
+	             <br/>
 	            </table>
             <hr/>
-			<div class="pos-center-align">Recieved the above goods in good condition.</div>
+			<div class="pos-center-align">Recieved the above goods in good condition. Refunds are not available.</div>
 			<br/>
             <div class="pos-center-align">Thanks for your patronage!</div>
         </t>

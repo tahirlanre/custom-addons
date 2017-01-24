@@ -30,11 +30,11 @@
     """,
     'author': 'Tahir Aduragba',
    
-    'depends': ['point_of_sale'],
+    'depends': ['point_of_sale','pos_product_available'],
     
     'installable': True,
     
-    'data': ['template.xml'],
+    'data': ['template.xml','views/view.xml'],
     
     'qweb': ['static/src/xml/pos.xml'],
  
