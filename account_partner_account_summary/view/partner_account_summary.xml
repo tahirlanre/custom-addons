@@ -107,8 +107,14 @@
                                 <td colspan="3">
                                     <strong>Cumulated Balance on Account</strong>
                                 </td>
-                                <td colspan="3" class="text-right">
-                                    <strong t-esc="formatLang(get_summary_final_balance(data['form'],context)[0],currency_obj=res_company.currency_id)"/>
+                                <td class="text-right">
+									<strong t-esc="formatLang(get_summary_final_balance(data['form'],context)['debit'],currency_obj=res_company.currency_id)"/>
+								</td>
+								<td class="text-right">
+									<strong t-esc="formatLang(get_summary_final_balance(data['form'],context)['credit'],currency_obj=res_company.currency_id)"/>
+								</td>
+								<td class="text-right">
+                                    <strong t-esc="formatLang(get_summary_final_balance(data['form'],context)['balance'],currency_obj=res_company.currency_id)"/>
                                 </td>
                             </tr>
                         </t>

@@ -160,8 +160,10 @@ class Parser(report_sxw.rml_parse):
             other_filters += " AND m.date <= \'%s\'" % to_date
         if company_id:
             other_filters += " AND m.company_id = %i" % company_id
+            
+        keys = ['debit', 'credit', 'balance']
 
-        query = """SELECT SUM(l.debit- l.credit)
+        query = """SELECT SUM(l.debit), SUM(l.credit), SUM(l.debit- l.credit)
             FROM account_move_line l
             LEFT JOIN account_account a ON (l.account_id=a.id)
             LEFT JOIN account_move m ON (l.move_id=m.id)
@@ -172,7 +174,7 @@ class Parser(report_sxw.rml_parse):
                 self._get_str_tuple(account_types), partner_ids, other_filters)
         self.cr.execute(query)
         res = self.cr.fetchall()
-        return res[0]
+        return dict(zip(keys, res[0]))
         
 
 class report_account_summary(osv.AbstractModel):
