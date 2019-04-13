@@ -16,12 +16,14 @@
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="inner">
            
-            <!--<div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
-            </div>-->
+            <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
+            </div>
 			<br />
-				<div class="pos-center-receipt-heading">SEORERA MEGA STORE</div>
-            	<div class="pos-center-receipt-address">Ahmad Makarfi Road, Kinkinau GRA Kaduna</div>
-				<div class="pos-center-receipt-address">Phone: 08065805667, 08069297274</div>
+				<div class="pos-center-receipt-heading">FARMHOUSE GROCERIES LIMITED</div>
+            	<div class="pos-center-receipt-slogan">Distributors and Retailers of Foods, Vegetables and Fruits</div>
+            	<div class="pos-center-receipt-slogan">Commodity Trading and Supply Chain Management</div>
+            	<div class="pos-center-receipt-address">45, Ebitu Ukiwe Street, Jabi P. O. Box 2814, Abuja</div>
+				<div class="pos-center-receipt-address">Phone: 0909994949, 08034286957</div>
 			<br />
             <table>
 				<div class ="pos-center-receipt-heading">SALES RECEIPT</div>

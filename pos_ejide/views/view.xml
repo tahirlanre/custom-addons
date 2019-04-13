@@ -6,13 +6,40 @@
 	  	<field name="inherit_id" ref="point_of_sale.view_report_pos_order_search"/>
 	      <field name="arch" type="xml">
 	          <xpath expr="//search/filter[@string='Year']" position="after">
-	  			<filter string="Month" name="month" domain="[('date','&lt;=', time.strftime('%%Y-%%m-%%d')),('date','&gt;=',time.strftime('%%Y-%%m-01'))]" help="POS ordered created during current month"/>
-				
-				<filter string="Today" name="today" domain="[('date','&lt;=', time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-01 00:00:00'))]" help="POS ordered created during current day"/>
-				
+	  			
+                <filter string="Month" name="month" domain="[('date','&lt;=', time.strftime('%%Y-%%m-%%d')),('date','&gt;=',time.strftime('%%Y-%%m-01'))]" help="POS ordered created during current month"/>
+                
+                <filter string="Today" name="today" domain="[('date','&lt;=', time.strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',time.strftime('%%Y-%%m-%%d 00:00:00'))]" help="POS ordered created during current day"/>
+                
+                <seperator/>
+    			
+                <filter string="Last Week" name="week" domain="[('date','&gt;=',(context_today()+relativedelta(weeks=-2,days=1,weekday=0)).strftime('%%Y-%%m-%%d')),('date','&lt;=',(context_today()+relativedelta(weeks=-1,weekday=6)).strftime('%%Y-%%m-%%d'))]" help="POS ordered created during the previous week"/>
+                
+                <filter string="Current Week" name="week" domain="[('date','&gt;=',(context_today()+relativedelta(weeks=-1,days=1,weekday=6)).strftime('%%Y-%%m-%%d')),('date','&lt;=',(context_today()).strftime('%%Y-%%m-%%d'))]" help="POS ordered created during the current week"/>
+                <seperator/>
+                
 	  		</xpath>
 	      </field>
 	  </record>
+      
+      <record id="view_report_pos_order_graph_custom" model="ir.ui.view">
+          <field name="name">report.pos.order.graph.custom</field>
+          <field name="model">report.pos.order</field>
+          <field name="inherit_id" ref="point_of_sale.view_report_pos_order_graph"/>
+          <field name="arch" type="xml">
+              <xpath expr="//graph" position="replace">
+                  <graph string="Point of Sale Analysis" type="pivot">
+                      <field name="date" interval="day" type="row"/>
+                      <field name="product_qty" type="measure"/>
+                      <field name="price_total" type="measure"/>
+                  </graph>
+              </xpath>
+          </field>
+      </record>
+      
+      <record id="point_of_sale.action_report_pos_order_all" model="ir.actions.act_window">
+          <field name="context">{'search_default_month':1}</field>
+      </record>
 	  
 	  <!--<record id="view_company_form_custom" model="ir.ui.view">
 	      <field name="name">res.company.form.branch</field>

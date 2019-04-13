@@ -56,7 +56,6 @@ class move_details(report_sxw.rml_parse):
             'time': time,
             'move_details': self._move_details,
             'move_type': self._get_move_type,
-            
         })
 
 

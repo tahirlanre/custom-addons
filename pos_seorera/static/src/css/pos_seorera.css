@@ -65,7 +65,13 @@
 
 .pos .pos-center-receipt-address {
     text-align: center;
-    font-size: 90%;
+    font-size: 85%;
+}
+
+.pos .pos-center-receipt-slogan{
+    text-align: center;
+    font-size: 70%;
+	font-style: italic;
 }
 
 .pos .clientlist-screen .client-detail > .client-debt.positive{

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data>
+    <record id="pos_sale_report_search_chi" model="ir.ui.view">
+        <field name="name">pos.sale.report.search.chi</field>
+        <field name="model">pos.sale.report</field>
+        <field name="inherit_id" ref="pos_sale_report.pos_sale_report_search"/>
+        <field name="arch"  type="xml">
+            <field name="product_id" position="after">
+                <field name="product_categ_id"/>
+                <filter icon="terp-go-today" name="today" string="Today" domain="[('date','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59))), ('date','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" help="Orders processed Today or planned for Today"/>
+                <filter string="Yesterday" domain="[('date','&gt;=', ((context_today()-datetime.timedelta(days=1)).strftime('%Y-%m-%d 00:00:00'))), ('date','&lt;=', ((context_today()+datetime.timedelta(days=0)).strftime('%Y-%m-%d 00:00:00')))]"/>
+                <separator/>
+    			<filter string="Last week" domain="[('date', '&gt;=', ((context_today()+relativedelta(weeks=-2,                                         days=1, weekday=0)).strftime('%Y-%m-%d'))),('date', '&lt;=', ((context_today()+relativedelta(weeks=-1,weekday=6)).strftime('%Y-%m-%d')))]"/>
+                <filter icon="terp-go-week"
+                        string="Current Week"
+                        separator="1"
+                        name="week"
+                        domain="[('date','&lt;=', (context_today() + relativedelta(weeks=0,day=7, weekday=-1)).strftime('%Y-%m-%d')),('date','&gt;=',(context_today() - relativedelta(weeks=1, weekday=0)).strftime('%Y-%m-%d'))]"
+                        help="Current Week"
+                        context="{'group_by':'date'}"/>
+                <separator/>
+                <filter icon="terp-go-month" string="Month" name="month" domain="[('date','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]" help="Current Month"/>
+                <filter name="chi" string="Chi products" domain="[('product_categ_id', '=', 3)]"/>
+            </field>
+        </field>
+    </record>
+    
+    <record id="pos_sale_report_graph_chi" model="ir.ui.view">
+        <field name="name">pos.sale.report.graph.chi</field>
+        <field name="model">pos.sale.report</field>
+        <field name="inherit_id" ref="pos_sale_report.pos_sale_report_graph"/>
+        <field name="arch"  type="xml">
+            <field name="date" position="replace">
+                <field name="date" type="col" interval="day"/>
+                <field name="product_id" type="row"/>
+            </field>
+            <field name="origin" position="replace">
+            </field>
+        </field>
+    </record>
+    
+    <record id="pos_sale_report.pos_sale_report_action" model="ir.actions.act_window">
+        <field name="context">{'search_default_chi':1, 'search_default_today':1}</field>
+    </record>
+</data>
+</openerp>
