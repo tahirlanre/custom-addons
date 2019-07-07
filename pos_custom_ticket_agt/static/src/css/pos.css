@@ -1,27 +1,13 @@
-.pos .pos-right-align {
+/*.pos .pos-right-align {
     text-align: right;
-	padding-right:8px;
+    padding-right:8px;
 }
 .pos .pos-qty-align {
     padding-left: 30px;
 }
 .pos .pos-amount-align {
     padding-left: 10px;
-}
-.pos .pos-sale-ticket {
-    text-align: left;
-    width: 540px;
-    background-color: white;
-    margin: 0px;
-    padding: 0px;
-    font-size: 14px;
-    padding-bottom:30px;
-    display: inline-block;
-    font-family: "Lucida Bright";
-    border: solid 1px rgb(220,220,220);
-    border-radius: 3px;
-    overflow: hidden;
-}
+}*/
 
 .pos .customer-payment {
     width: 220px;
@@ -63,34 +49,52 @@
     text-align: center;
 }
 
-
 .pos .customer-payment-div {
-
     display: inline-block;
     max-width: 640px;
     max-height: 48px;
     white-space: nowrap;
     overflow: hidden;
     overflow-x: auto;
-    
 }
 
-.ticket_head_lines{
+/*.ticket_head_lines{
     font-size: 110%;
     font-weight: bold;
-    text-transform: uppercase;  
+    text-transform: uppercase;
     border-bottom: 1px solid black;
-	border-top: 1px solid black;
+    border-top: 1px solid black;
+}*/
+
+.pos .pos-sale-ticket {
+    text-align: left;
+    width: 1000px;
+    background-color: white;
+    /*margin: 0px;
+    padding: 0px;*/
+    font-size: 16px !important;
+    padding-top: 100px;
+    display: inline-block;
+    font-family: "Lucida Bright";
+    border: solid 1px rgb(220,220,220);
+    border-radius: 3px;
+    overflow: hidden;
 }
 
-.pos .pos-center-receipt-heading {
-    text-align: center;
+.pos .pos-sale-ticket .company-address {
+    text-align: left;
+}
+
+.pos .pos-sale-ticket .pos-text-bold {
     font-weight: bold;
 }
 
-.pos .pos-center-receipt-address {
-    text-align: center;
-    font-size: 90%;
+.pos .pos-sale-ticket table td{
+    padding: 5px 0px;
+}
+
+.pos .pos-sale-ticket table th{
+    border-bottom: double;
 }
 
 .pos .clientlist-screen .client-detail > .client-debt.positive{
@@ -128,10 +132,7 @@
         display: none !important;
     }
     .pos .pos-sale-ticket {
-        width: 540px !important;
-        margin-left: 0;
-        margin-right: 0;
-		font-size: 85%;
+        width: 1000px !important;
     }
     .debug-widget{
         display: none !important;
@@ -143,11 +144,11 @@
     }
     /* [antoniov] 2014-12-04: set darker color & no border */
     /* border: solid 1px black !important; */
-    .point-of-sale .pos-sale-ticket{
+   /* .point-of-sale .pos-sale-ticket{
         width: 540px !important;
         margin-left: 0;
         margin-right: 0;
         color: #000000;
-    }
+    }*/
 }
 

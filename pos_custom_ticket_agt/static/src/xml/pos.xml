@@ -3,62 +3,66 @@
 	
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="inner">
-            <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
-            </div>
+            <!-- <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
+            </div> -->
 			<br />
-				<div class="pos-center-receipt-heading"><t t-esc="widget.pos.company.name"/></div>
-                <div class="pos-center-receipt-address">Major Distributor of Dangote Cement</div>
-                <div class="pos-center-receipt-heading">OFFICE ADDRESS</div>
-                <div class="pos-center-receipt-address">Plot No. 3, Pipeline Road</div>
-                <div class="pos-center-receipt-address">Opposite Excellence Hotel, Ilorin, Kwara State</div>
-				<div class="pos-center-receipt-address">Phone: 08066691592</div>
-                <div class="pos-center-receipt-address">Email: agt_businessventures@yahoo.com</div>
+				<div class="company-address pos-text-bold"><t t-esc="widget.pos.company.name"/></div>
+                <div class="company-address">Major Distributor of Dangote Cement</div>
+                <div class="company-address pos-text-bold">OFFICE ADDRESS</div>
+                <div class="company-address">Plot No. 3, Pipeline Road</div>
+                <div class="company-address">Opposite Excellence Hotel, Ilorin, Kwara State</div>
+				<div class="company-address">Phone: 08066691592, 08061389083, 08163392065</div>
+                <div class="company-address">Email: agt_businessventures@yahoo.com</div>
 			<br />
             <table>
-				<div class ="pos-center-receipt-heading">SALES INVOICE <t t-esc="custom_name"/></div>
+				<div class="pos-text-bold pos-center-align">SALES INVOICE <t t-esc="custom_name"/></div>
             </table>
 	
-				<br />
-				<div style="font-style:italic; font-weight:bold"><t t-esc="partner.name"/></div>
-				<table>
-                        <!--<div><t t-esc="order.get('name')"/></div>-->
-						<div><t t-esc="'Date:'+new Date().toString('d-MM-yyyy')"/> <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortTime)"/></div>
-                        <div>Served by: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/></div>
-				</table>
-                <br/>
+			<br />
+			<div class="pos-text-bold"><t t-esc="partner.name"/></div>
+			<table>
+                    <!--<div><t t-esc="order.get('name')"/></div>-->
+					<div><t t-esc="'Date: '+new Date().toString('d-MM-yyyy')"/> <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortTime)"/></div>
+                    <div>Served by: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/></div>
+			</table>
+            <br/>
                 
-                <hr />
-					<table style="font-weight:bold">
-					<td>Description of Products</td> <td class="pos-right-align">Amount</td>
-					</table>
-                <hr/>
-				<table >
-                <colgroup>
-                    <col width='50%' />
-                    <col width='25%' />
-                    <col width='25%' />
-                </colgroup>
-				
+            <!-- <hr/> -->
+			<table class="order-info">
+                <tr>
+					<th>Item</th> 
+                    <th class="pos-right-align">Quantity</th>
+                    <th class="pos-right-align">Rate</th>
+                    <th class="pos-right-align">Amount</th>
+                </tr>
                 <tr t-foreach="orderlines" t-as="orderline">
-                    <div style="font-weight:bold">
-                        <t style="padding-left=10px" t-esc="orderline.get_quantity_str_with_unit()"/>  <t t-esc="orderline.get_product().display_name"/> @ <t t-esc="widget.format_currency(orderline.get_product().list_price)"/>                
-                    </div>
-                    <t t-if="orderline.get_discount() > 0">
+                    <td class="pos-text-bold">
+                        <t t-esc="orderline.get_product().display_name"/> 
+                        <t t-if="orderline.get_discount() > 0">
                             <div class="pos-disc-font">
                                 With a <t t-esc="widget.format_currency(orderline.get_discount())"/> discount
                             </div>
-                    </t>
-					
-					<div style="font-weight:bold" class="pos-right-align">
+                        </t>          
+                    </td>
+					<td class="pos-right-align">
+						<t t-esc="orderline.get_quantity_str_with_unit()"/>
+					</td>
+					<td class="pos-right-align">
+						<t t-esc="widget.format_currency(orderline.get_product().list_price)"/>       
+					</td>
+					<td class="pos-right-align">
 						<t t-esc="widget.format_currency(orderline.get_display_price())"/>
-					</div>
-                    <hr/>   
+					</td>  
                 </tr>
-				</table>
+			</table>
             
+            <br/>
+            <br/>
             <table>
                 <tr>
-                    <td>Subtotal:</td>
+                    <td></td>
+                    <td class="pos-right-align"></td>
+                    <td class="pos-right-align">Subtotal:</td>
                     <td class="pos-right-align">
                         <t t-esc="widget.format_currency(order.getSubtotal())"/>
                     </td>
@@ -72,48 +76,52 @@
                     </tr>
                 </t>
                 <tr>
-                    <td>Discount:</td>
+                    <td></td>
+                    <td class="pos-right-align"></td>
+                    <td class="pos-right-align">Discount:</td>
                     <td class="pos-right-align">
                         <t t-esc="widget.format_currency(order.getDiscountTotal())"/>
                     </td>
                 </tr>
                 <tr class="emph">
-                    <td>Total:</td>
+                    <td></td>
+                    <td class="pos-right-align"></td>
+                    <td class="pos-right-align">Total:</td>
                     <td class="pos-right-align">
                         <t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/>
                     </td>
                 </tr>
             </table>
-			    <br/>
-				<table>
-					<tr t-foreach="paymentlines" t-as="line">
-						<t t-if="line.amount >= 0  ">
-                            <t t-if="line.name != 'Discount Journal (NGN)'">
-							<td>
-								<t t-esc="line.name"/>
+            
+			<br/>
+			<table>
+				<tr t-foreach="paymentlines" t-as="line">
+					<t t-if="line.amount >= 0  ">
+                        <t t-if="line.name != 'Discount Journal (NGN)'">
+                            <td></td>
+                            <td class="pos-right-align"></td>
+							<td class="pos-right-align">
+								Paid - <t t-esc="line.name"/>
 							</td>
 							<td class="pos-right-align">
 								<t t-esc="widget.format_currency(line.get_amount())"/>
 							</td>
-                            </t>
-						</t>
-					</tr>
-				</table>
-             <br/>
+                        </t>
+					</t>
+				</tr>
+			</table>
+    
+            <br/>
             <table>
-                <tr t-if="order.getChange() !== 0">
-                    <td>Change:</td><td class="pos-right-align">
-                        <t t-esc="widget.format_currency(order.getChange())"/>
-                    </td>
-                </tr>
-                <tr t-if="order.get_balance() !== 0">
-                    <td>Balance:</td><td class="pos-right-align">
-                        <t t-esc="widget.format_currency(Math.abs(order.get_balance()))"/>
-                    </td>
-                </tr>    
-                  
+                <td></td>
+                <td class="pos-right-align"></td>
+                <td class="pos-right-align">Amount Due:</td>
+                <td class="pos-right-align">
+                    <t t-esc="widget.format_currency(Math.abs(order.get_balance()))"/>
+                </td>
             </table>
-            <hr/>
+            
+            <br/>
             <div class="pos-center-align">Thanks for your patronage!</div>
             <t t-if="widget.pos.config.receipt_footer">
                 <br />
@@ -126,65 +134,41 @@
 	
     <t t-name="CustomerPosTicket">
         <div class="pos-sale-ticket">
-
-            <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
-            </div>
+            <!-- <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
+            </div> -->
 			<br />
-				<div class="pos-center-receipt-heading"><t t-esc="widget.pos.company.name"/></div>
-                <div class="pos-center-receipt-address">Major Distributor of Dangote Cement</div>
-                <div class="pos-center-receipt-heading">OFFICE ADDRESS</div>
-                <div class="pos-center-receipt-address">Plot No. 3, Pipeline Road</div>
-                <div class="pos-center-receipt-address">Opposite Excellence Hotel, Ilorin, Kwara State</div>
-				<div class="pos-center-receipt-address">Phone: 08066691592</div>
-                <div class="pos-center-receipt-address">Email: agt_businessventures@yahoo.com</div>
+    			<div class="company-address pos-text-bold"><t t-esc="widget.pos.company.name"/></div>
+                <div class="company-address">Major Distributor of Dangote Cement</div>
+                <div class="company-address pos-text-bold">OFFICE ADDRESS</div>
+                <div class="company-address">Plot No. 3, Pipeline Road</div>
+                <div class="company-address">Opposite Excellence Hotel, Ilorin, Kwara State</div>
+    			<div class="company-address">Phone: 08066691592, 08061389083, 08163392065</div>
+                <div class="company-address">Email: agt_businessventures@yahoo.com</div>
 			<br />
             <table>
-				<div class ="pos-center-receipt-heading">PAYMENT RECEIPT <t t-esc="paymentno"/></div>
+				<div class ="pos-text-bold pos-center-align">PAYMENT RECEIPT <t t-esc="paymentno"/></div>
             </table>
 	
-				<br />
-				<div style="font-style:italic; font-weight:bold"><t t-esc="partner.name"/></div>
-				<table>
-                        <div><t t-esc="order.uid"/></div>          
-						<div><t t-esc="'Date:'+new Date().toString('d-MM-yyyy')"/> <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortTime)"/></div>
-                        <div>Served by: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/></div>
-				</table>
+			<br />
+			<div style="font-style:italic; font-weight:bold"><t t-esc="partner.name"/></div>
+			<table>
+                    <div><t t-esc="order.uid"/></div>          
+					<div><t t-esc="'Date:'+new Date().toString('d-MM-yyyy')"/> <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortTime)"/></div>
+                    <div>Served by: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/></div>
+			</table>
 				
-				<hr />
-				
+			<hr />
 			    
-				<table>
-					<!--<tr t-foreach="paymentlines" t-as="line">
-						<t t-if="line.amount >= 0">
-							<td>
-								<t t-esc="line.name"/>
-							</td>
-							<td class="pos-right-align">
-								<t t-esc="widget.format_currency(line.get_amount())"/>
-							</td>
-						</t>
-					</tr>!-->
-                    
-                    <td>
-                        <t t-esc="paymentdetail"/>
-                    </td>
-                    <td class="pos-right-align">
-                        <t t-esc="widget.format_currency(paymentamount)"/>
-                    </td>
-				</table>
-                <br />
-                <!--<table>
-                    <td>
-                        Customer Balance: 
-                    </td>
-                     <td class="pos-right-align">
-                       <t t-esc="widget.format_currency(partner.balance)"/>
-                    </td>
-                </table>!-->
-				
-				<hr />
-				
+			<table>
+                <td>
+                    <t t-esc="paymentdetail"/>
+                </td>
+                <td class="pos-right-align">
+                    <t t-esc="widget.format_currency(paymentamount)"/>
+                </td>
+			</table>
             
+            <br />
             <div class="pos-center-align">Thanks for your patronage!</div>
             <t t-if="widget.pos.config.receipt_footer">
                 <br />
