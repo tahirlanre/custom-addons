@@ -3,9 +3,13 @@
 	
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="inner">
-            <!-- <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
-            </div> -->
-			<br />
+            
+            <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
+                </div> 
+
+            <br/>
+            <table>
+			<!-- <br /> -->
 				<div class="company-address pos-text-bold"><t t-esc="widget.pos.company.name"/></div>
                 <div class="company-address">Major Distributor of Dangote Cement</div>
                 <div class="company-address pos-text-bold">OFFICE ADDRESS</div>
@@ -13,19 +17,19 @@
                 <div class="company-address">Opposite Excellence Hotel, Ilorin, Kwara State</div>
 				<div class="company-address">Phone: 08066691592, 08061389083, 08163392065</div>
                 <div class="company-address">Email: agt_businessventures@yahoo.com</div>
-			<br />
-            <table>
-				<div class="pos-text-bold pos-center-align">SALES INVOICE <t t-esc="custom_name"/></div>
+			<!-- <br /> -->
             </table>
+
+            <div class="pos-text-bold pos-center-align">SALES INVOICE <t t-esc="custom_name"/></div>
 	
-			<br />
-			<div class="pos-text-bold"><t t-esc="partner.name"/></div>
+			<!-- <br /> -->
 			<table>
                     <!--<div><t t-esc="order.get('name')"/></div>-->
+                    <div class="pos-text-bold"><t t-esc="partner.name"/></div>
 					<div><t t-esc="'Date: '+new Date().toString('d-MM-yyyy')"/> <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortTime)"/></div>
                     <div>Served by: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/></div>
 			</table>
-            <br/>
+            <!-- <br/> -->
                 
             <!-- <hr/> -->
 			<table class="order-info">
@@ -56,8 +60,8 @@
                 </tr>
 			</table>
             
-            <br/>
-            <br/>
+            <!-- <br/>
+            <br/> -->
             <table>
                 <tr>
                     <td></td>
@@ -93,7 +97,7 @@
                 </tr>
             </table>
             
-			<br/>
+			<!-- <br/> -->
 			<table>
 				<tr t-foreach="paymentlines" t-as="line">
 					<t t-if="line.amount >= 0  ">
@@ -111,7 +115,7 @@
 				</tr>
 			</table>
     
-            <br/>
+            <!-- <br/> -->
             <table>
                 <td></td>
                 <td class="pos-right-align"></td>
@@ -121,8 +125,13 @@
                 </td>
             </table>
             
-            <br/>
-            <div class="pos-center-align">Thanks for your patronage!</div>
+            <!-- <br/> -->
+            <table class="signature-box">
+                <td class="pos-center-align"><span class="signature-line">Customer Signature</span></td>
+                <td class="pos-center-align"><span class="signature-line">Manager Signature</span></td>
+            </table>
+            
+            <div class="footer pos-center-align">Thanks for your patronage!</div>
             <t t-if="widget.pos.config.receipt_footer">
                 <br />
                 <div style='text-align:center'>
@@ -134,8 +143,8 @@
 	
     <t t-name="CustomerPosTicket">
         <div class="pos-sale-ticket">
-            <!-- <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
-            </div> -->
+            <div id="company_logo" class="pos-center-align"><img t-att-src="'data:image/png;base64,'+widget.pos.company.logo"/>
+            </div> 
 			<br />
     			<div class="company-address pos-text-bold"><t t-esc="widget.pos.company.name"/></div>
                 <div class="company-address">Major Distributor of Dangote Cement</div>
@@ -169,7 +178,7 @@
 			</table>
             
             <br />
-            <div class="pos-center-align">Thanks for your patronage!</div>
+            <div class="footer pos-center-align">Thanks for your patronage!</div>
             <t t-if="widget.pos.config.receipt_footer">
                 <br />
                 <div style='text-align:center'>

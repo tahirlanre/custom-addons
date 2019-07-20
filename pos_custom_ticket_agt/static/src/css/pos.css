@@ -75,10 +75,14 @@
     font-size: 16px !important;
     padding-top: 100px;
     display: inline-block;
-    font-family: "Lucida Bright";
+    font-family: ColfaxWeb,"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     border: solid 1px rgb(220,220,220);
     border-radius: 3px;
     overflow: hidden;
+}
+
+#company_logo{
+    margin: 30px 0px;
 }
 
 .pos .pos-sale-ticket .company-address {
@@ -89,12 +93,29 @@
     font-weight: bold;
 }
 
+.pos .pos-sale-ticket table {
+    margin: 20px 0px;
+}
+
 .pos .pos-sale-ticket table td{
     padding: 5px 0px;
 }
 
 .pos .pos-sale-ticket table th{
     border-bottom: double;
+}
+
+.pos .pos-sale-ticket .signature-box{
+    margin: 150px 0px;
+}
+
+.pos .pos-sale-ticket .signature-line{
+    border-top-style: dotted;
+    padding-top: 15px;
+}
+
+.pos .pos-sale-ticket .footer {
+    margin-top: 30px;
 }
 
 .pos .clientlist-screen .client-detail > .client-debt.positive{
@@ -133,6 +154,8 @@
     }
     .pos .pos-sale-ticket {
         width: 1000px !important;
+        padding-left: 50px;
+        padding-right: 50px;
     }
     .debug-widget{
         display: none !important;
