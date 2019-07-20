@@ -127,8 +127,8 @@
             
             <!-- <br/> -->
             <table class="signature-box">
-                <td class="pos-center-align"><span class="signature-line">Customer Signature</span></td>
-                <td class="pos-center-align"><span class="signature-line">Manager Signature</span></td>
+                <td class="pos-center-align"><span class="signature-line">Customer's Signature</span></td>
+                <td class="pos-center-align"><span class="signature-line">Manager's Signature</span></td>
             </table>
             
             <div class="footer pos-center-align">Thanks for your patronage!</div>
