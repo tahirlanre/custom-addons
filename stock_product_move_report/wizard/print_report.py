@@ -27,30 +27,47 @@ from openerp.tools.float_utils import float_round
 
 import time
 
+
 class stock_product_move_report(osv.osv_memory):
-    
-    _name = 'stock.product.move.report'
+
+    _name = "stock.product.move.report"
     _columns = {
-            'date_from': fields.date("Date from",  required=True),
-            'date_to': fields.date("Date to", required=True),
-            'product_id': fields.many2one('product.product', 'Product',  required=True),
-        }
+        "date_from": fields.date("Date from", required=True),
+        "date_to": fields.date("Date to", required=True),
+        "product_id": fields.many2one("product.product", "Product", required=True),
+        "location_id": fields.many2one(
+            "stock.location",
+            "Location",
+            domain="[('usage', '=', 'internal')]",
+            required=True,
+        ),
+    }
     _defaults = {
-               'date_from': lambda *a: time.strftime('%Y-%m-%d'),
-               'date_to': lambda *a: time.strftime('%Y-%m-%d'),
-               }
-               
-    
+        "date_from": lambda *a: time.strftime("%Y-%m-%d"),
+        "date_to": lambda *a: time.strftime("%Y-%m-%d"),
+    }
+
     def print_report(self, cr, uid, ids, context=None):
-        
+
         if context is None:
             context = {}
-        datas = {'ids': context.get('active_ids', [])}
-        res = self.read(cr, uid, ids, ['date_from', 'product_id', 'date_to'], context=context)
+        datas = {"ids": context.get("active_ids", [])}
+        res = self.read(
+            cr,
+            uid,
+            ids,
+            ["date_from", "product_id", "date_to", "location_id"],
+            context=context,
+        )
         res = res and res[0] or {}
-        datas['form'] = res
-        if res.get('id',False):
-            datas['ids']=[res['id']]
-        return self.pool['report'].get_action(cr, uid, [], 'stock_product_move_report.move_report', data=datas, context=context)
-               
-        
+        datas["form"] = res
+        if res.get("id", False):
+            datas["ids"] = [res["id"]]
+        return self.pool["report"].get_action(
+            cr,
+            uid,
+            [],
+            "stock_product_move_report.move_report",
+            data=datas,
+            context=context,
+        )

@@ -117,8 +117,8 @@ class Parser(report_sxw.rml_parse):
                 #'code': product.default_code,
                 'stock_value': stock_value  #total_stock_value_in - total_stock_value_out
             }
-            
-            data.append(result)
+            if opening_stock > 0 or closing_stock > 0 or total_incoming_stock > 0 or total_outgoing_stock:
+                data.append(result)
         if(data):
             return data
         else:

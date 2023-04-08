@@ -36,16 +36,16 @@ class stock_report_wizard(osv.osv_memory):
     _columns = {
         'from_date': fields.date("Date from", required=True),
         'to_date': fields.date("Date to", required=True),
-        'location_id': fields.many2one('stock.location', 'Location', domain="[('usage', '=', 'internal')]"),
+        'location_id': fields.many2one('stock.location', 'Location', domain="[('usage', '=', 'internal')]", required=True),
         'show_incoming': fields.boolean('Incoming'),
         'show_outgoing': fields.boolean('Outgoing'),
-        'show_opening': fields.boolean('Opening')
+        'show_opening': fields.boolean('Opening'),
     }
     
     _defaults = {
                'to_date': lambda *a: time.strftime('%Y-%m-%d'),
                'from_date': lambda *a: time.strftime('%Y-%m-%d'),
-               'location_id': _get_wh_stock_id,        ## set location_id to WH/Stock
+            #    'location_id': _get_wh_stock_id,        ## set location_id to WH/Stock
                'show_incoming': False,
                'show_outgoing': False,
                'show_opening': False,

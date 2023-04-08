@@ -11,7 +11,7 @@
 					<group string="Date Filter">
 						<field name="from_date" />
 						<field name="to_date" />
-						<!--<field name="location_id" />-->
+						<field name="location_id" />
 					</group>
 					<group string="Layout Options">
 						<field name="show_opening" />
